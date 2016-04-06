@@ -1,19 +1,61 @@
  <?php
 $qqq = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id, u.login FROM groups g, users u
 						  WHERE g.created_user_id=u.id and g.created_user_id = " . $_SESSION['user_id'];
+$queryUser = "select * from users where id=".$_SESSION['user_id']. " LIMIT 1";
 
 //print $qqq;
 
 $query = mysqli_query($link, $qqq);
+$queryUsers = mysqli_query($link, $queryUser);
+$userRow = mysqli_fetch_array($queryUsers);
+
 ?>
 <div class="parent">
-    <div class="block-center-profile" style="background-color: #9d9d9d">
+    <div class="block-center-profile" >
         <div class="profile_info">
-            <h1>Мой профиль</h1>
-            <p></p>
+            <h2>Мой профиль</h2>
+            <table class="profile_table">
+                <tr>
+                    <td>Фамилия: </td>
+                    <td><?php echo $userRow['fname']; ?></td>
+                </tr>
+                <tr>
+                    <td>Имя: </td>
+                    <td><?php echo $userRow['lname']; ?></td>
+                </tr>
+                <tr>
+                    <td>Тип: </td>
+                    <td><?php echo user_type($userRow['role']); ?></td>
+                </tr>
+                <tr>
+                    <td>Создан: </td>
+                    <td><?php
+                        $date = new DateTime($userRow['created_at']);
+                        echo $date->Format('Y/m/d');
+                         ?></td>
+                </tr>
+                <tr>
+                    <td>Email: </td>
+                    <td><?php echo $userRow['email']; ?></td>
+                </tr>
+                <tr>
+                    <td>Адресс: </td>
+                    <td><?php echo $userRow['address']; ?></td>
+                </tr>
+                <tr>
+                    <td>Телефон: </td>
+                    <td><?php echo "+7 ".$userRow['phone']; ?></td>
+                </tr>
+                <?php if($userRow['role']==1){ ?>
+                <tr>
+                    <td>Рейтинг: </td>
+                    <td></td>
+                </tr>
+                <?php } ?>
+            </table>
         </div>
         <div class="profile_list">
-            <p>My GROUPS</p>
+            <h2>Мои группы</h2>
             <table class="simple-little-table" cellspacing='0'>
 
                 <tr>
@@ -33,7 +75,10 @@ $query = mysqli_query($link, $qqq);
 
                 <tr>
                     <td><?php echo $row['name']; ?></td>
-                    <td><?php echo $row['created_at']; ?></td>
+                    <td><?php
+                        $date = new DateTime($row['created_at']);
+                        echo $date->Format('F j H:i');
+                        ?></td>
                     <td style="text-align: left; "><?php while($row2 = mysqli_fetch_array($query2)){
                                     if($row2['user_login'] != $_SESSION['user_login']){
                                         echo $row2['user_login']." ";

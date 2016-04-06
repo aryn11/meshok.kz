@@ -308,7 +308,24 @@ function mb_ucfirst($str)
     $str = mb_strtoupper(mb_substr($str, 0, 1, 'UTF-8'), 'UTF-8') .
         mb_strtolower(mb_substr($str, 1, mb_strlen($str), 'UTF-8'), 'UTF-8');
     return $str;
-}//конец функции
+}
+
+//функция на вывод типа пользователя
+function user_type($str)
+{
+    $buyer = "Покупатель";
+    $seller = "Продавец";
+    $admin = "Администратор";
+    if($str == 1){
+        return $seller;
+    } else if ($str == 2) {
+        return $buyer;
+    } else if ($str == 3) {
+        return $admin;
+    } else {
+        return null;
+    }
+}
 
 ?>
 

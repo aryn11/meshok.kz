@@ -44,7 +44,6 @@ body {
 }
 .block-center-profile{
     width: 1100px;
-    height: 100%;
     min-height: 500px;
     top: 0;
     right: 0;
@@ -93,19 +92,41 @@ body {
 }
 .profile_info{
     display: inline-block;
-    min-widht: 300px;
+    min-width: 400px;
     min-height: 500px;
-    background-color: #00A5E3;
+    padding: 20px;
+    float:left;
+}
+.profile_info h2 {
+    font-family: "Century Gothic", serif;
+    font-weight: normal;
+}
+.profile_info p {
+    font-family: "Century Gothic", serif;
+    font-weight: normal;
 }
 .profile_list{
-    widht: 500px;
-    background-color: #00fafa;
+    padding: 20px;
+    width: 500px;
     display: inline-block;
 }
-.profile_list p {
-    font-family: Verdana, serif;
+.profile_list h2 {
+    font-weight: normal;
+    font-family: "Century Gothic", serif;
+    margin-left: 18px;
 }
-
+.profile_list p {
+    font-family: "Century Gothic", serif;
+}
+.profile_table {
+    font-family: "Century Gothic", serif;
+}
+.profile_table td {
+    padding: 3px 5px;
+}
+.profile_table td:first-child {
+    text-align: right;
+}
 #content_container {
     margin-left: auto;
     margin-right: auto;
@@ -166,6 +187,7 @@ body {
     width: 700px;
     height: 90px;
     float: right;
+
 }
 
 .nav_button {
