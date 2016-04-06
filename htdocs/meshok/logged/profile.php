@@ -102,7 +102,7 @@ $userRow = mysqli_fetch_array($queryUsers);
 
             <?php
             $queryMyGroup = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id, u.login, ug.group_id, ug.user_id FROM groups g, users u, users_in_groups ug
-						  WHERE g.id=ug.group_id and ug.user_id=u.id and g.created_user_id<>".$_SESSION['user_id']." and ug.user_id=".$_SESSION['user_id'];
+						  WHERE g.id=ug.group_id and ug.user_id=u.id and g.created_user_id<>" . $_SESSION['user_id'] . " and ug.user_id=" . $_SESSION['user_id'];
             $queryMyGroups = mysqli_query($link, $queryMyGroup);
 
             ?>
@@ -114,15 +114,33 @@ $userRow = mysqli_fetch_array($queryUsers);
                     <th>Лидер/Участники</th>
                     <th style="padding: 0 80px; ">Заказы</th>
                 </tr><!-- Table Header -->
-                <?php while($rowMyGroups = mysqli_fetch_array($queryMyGroups)){
-                ?>
-                <tr>
-                    <td><?php echo $rowMyGroups['name']; ?></td>
-                    <td><?php $date = new DateTime($rowMyGroups['created_at']);
-                        echo $date->Format('F j H:i');?></td>
-                    <td></td>
-                    <td></td>
-                </tr><!-- Table Row -->
+                <?php while ($rowMyGroups = mysqli_fetch_array($queryMyGroups)) {
+                    ?>
+                    <tr>
+                        <td><?php echo $rowMyGroups['name']; ?></td>
+                        <td><?php $date = new DateTime($rowMyGroups['created_at']);
+                            echo $date->Format('F j H:i'); ?></td>
+                        <td><?php
+                            $queryMyGroupsUser = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id, u.login, ug.group_id, ug.user_id FROM groups g, users u, users_in_groups ug
+						                          WHERE ug.group_id = " . $rowMyGroups['group_id'] . " and u.id=ug.user_id and g.id=ug.group_id";
+                            $queryMyGroupsUsers = mysqli_query($link, $queryMyGroupsUser);
+                            while ($rowMyGroupsUser = mysqli_fetch_array($queryMyGroupsUsers)) {
+                                if ($rowMyGroupsUser['login'] != $_SESSION['user_login']) {
+                                    echo $rowMyGroupsUser['login'] . "<br> ";
+                                }
+                            }
+                            ?>
+                        </td>
+                        <td style="text-align: left; padding-top: 35px;"><?php $queryOrders = "select o.id as order_id, o.good_id, o.group_id, o.quantity, o.price, o.payment, o.is_deleted, gs.id, gs.name as good_name 
+                                              from orders o, goods gs 
+                                              where o.is_deleted = 0 and gs.id = o.good_id and o.group_id=" . $rowMyGroups['group_id'];
+                        $runQueryOrders = mysqli_query($link, $queryOrders);
+                        while ($rowOrders = mysqli_fetch_array($runQueryOrders)){ ?>
+                        <a href="?page=order&oid=<?php echo $rowOrders['order_id']; ?>&oname=<?php echo $rowOrders['good_name'] ?>"><?php
+                            echo mb_ucfirst($rowOrders['good_name']) . " " . $rowOrders['quantity'] . "кг/" . $rowOrders['price'] . "тг</br></br>";
+                            ?> </a> <?php }
+                        ?></a></td>
+                    </tr><!-- Table Row -->
                 <?php } ?>
             </table>
         </div>
