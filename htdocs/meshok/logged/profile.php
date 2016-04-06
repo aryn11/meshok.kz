@@ -31,7 +31,7 @@ $userRow = mysqli_fetch_array($queryUsers);
                     <td>Создан: </td>
                     <td><?php
                         $date = new DateTime($userRow['created_at']);
-                        echo $date->Format('Y/m/d');
+                        echo $date->Format('d/m/Y');
                          ?></td>
                 </tr>
                 <tr>
@@ -84,14 +84,15 @@ $userRow = mysqli_fetch_array($queryUsers);
                                         echo $row2['user_login']." ";
                                     }
                             }?></td>
-                    <td style="text-align: left; "><?php $queryOrders = "select o.good_id, o.group_id, o.quantity, o.price, o.payment, o.is_deleted, gs.id, gs.name as good_name 
+                    <td style="text-align: left; "><?php $queryOrders = "select o.id as order_id, o.good_id, o.group_id, o.quantity, o.price, o.payment, o.is_deleted, gs.id, gs.name as good_name 
                                               from orders o, goods gs 
                                               where o.is_deleted = 0 and gs.id = o.good_id and o.group_id=".$row['group_id'];
-                        $runQueryOrders = mysqli_query($link, $queryOrders);
-                        while($rowOrders = mysqli_fetch_array($runQueryOrders)){
+                                    $runQueryOrders = mysqli_query($link, $queryOrders);
+                                    while($rowOrders = mysqli_fetch_array($runQueryOrders)){ ?>
+                        <a href="?page=order&oid=<?php echo $rowOrders['order_id']; ?>&oname=<?php echo $rowOrders['good_name'] ?>"><?php
                                     echo mb_ucfirst($rowOrders['good_name'])." ".$rowOrders['quantity']."кг/".$rowOrders['price']."тг</br></br>";
-                        }
-                        ?></td>
+                        ?> </a> <?php }
+                        ?></a></td>
                     <td> <a id="addOrderButton" href="?page=addOrder&mid=<?php print $row['group_id'];?>">+</a></td>
                 </tr><!-- Table Row -->
                 <?php

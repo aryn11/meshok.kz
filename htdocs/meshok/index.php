@@ -262,6 +262,9 @@ if ($logged) {
         } else if ($_GET['page'] == 'addOrder') {
             $page = $_GET['page'];
             $pageTitle = "Создание заказа • Meshok";
+        } else if ($_GET['page'] == 'order') {
+            $page = $_GET['page'];
+            $pageTitle = "Заказ ".mb_ucfirst($_GET['oname'])." • Meshok";
         }
         /* else if ($_GET['page'] == 'messages') {
             $page = $_GET['page'];
@@ -326,6 +329,12 @@ function user_type($str)
         return null;
     }
 }
+function right_case($str_right_case){
+    if($str_right_case == "картошка"){
+        return "картошку";
+    }
+    return $str_right_case;
+}
 
 ?>
 
@@ -333,7 +342,7 @@ function user_type($str)
     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title><?php
         //отображение титула страницы
             echo $pageTitle;
@@ -374,7 +383,7 @@ function user_type($str)
                 </a>
             <?php } else if ($logged != true) { ?>
                 <a href="?page=home#login_block">
-                    <div class="nav_button_reg" style="margin-left: 60%">SIGN IN</div>
+                    <div class="nav_button_reg" style="margin-left: 50%">SIGN IN</div>
                 </a>
                 <a href="?page=registration">
                     <div class="nav_button_reg">SIGN UP</div>

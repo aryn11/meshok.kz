@@ -51,6 +51,15 @@ body {
     left: 0;
     margin: auto;
 }
+.block-center-order{
+    width: 1100px;
+    min-height: 500px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
 .block-center-addOrder {
     width: 400px;
     height: 100%;
@@ -83,6 +92,35 @@ body {
     bottom: 0;
     left: 0;
     margin: auto;
+}
+.block-center-order {
+    width: 610px;
+    height: 100%;
+    min-height: 500px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+.a4list {
+    min-width: 600px;
+    min-height:800px;
+    background-color: #f6faf8;
+    box-shadow: 0 0 10px rgba(0,0,0,0.5);
+    margin: 5px 5px 8px 5px;
+    font-family: "Century Gothic", serif;
+}
+.a4list h2{
+    text-align: center;
+    padding-top:60px;
+}
+.a4list p {
+    font-size:14px;
+    margin-left: 40px;
+}
+.a4list hr {
+    margin: 35px;
 }
 #addOrder_form{
     margin-top: 40px;
@@ -127,6 +165,9 @@ body {
 .profile_table td:first-child {
     text-align: right;
 }
+.profile_table td:last-child {
+    font-weight: bold;
+}
 #content_container {
     margin-left: auto;
     margin-right: auto;
@@ -155,7 +196,7 @@ body {
 #logo_image {
     width: 255px;
     height: 75px;
-    margin-left: 10px;
+    margin-left: 50px;
     margin-top: 7px;
     float: left;
 }
@@ -184,7 +225,7 @@ body {
 }
 
 #nav_block {
-    width: 700px;
+    width: 530px;
     height: 90px;
     float: right;
 
