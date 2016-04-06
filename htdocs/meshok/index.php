@@ -345,7 +345,11 @@ function right_case($str_right_case){
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <title><?php
         //отображение титула страницы
+        if(isset($pageTitle)){
             echo $pageTitle;
+        }else {
+            echo "Meshok.kz";
+        }
         ?></title>
     <link href="css/stylesheet.css" rel="stylesheet" type="text/css"/>
 </head>
