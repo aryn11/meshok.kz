@@ -5,7 +5,7 @@ $queryOrders = mysqli_query($link, $queryOrder);
 $rowOrder = mysqli_fetch_array($queryOrders);
 
 $queryMyBid = "select b.id as bid_id, b.order_id, b.user_id, b.is_deleted, b.created_at, b.price, u.id as user_id, u.login, u.phone, u.email
-                                    from users u, bid b where b.order_id=".$_GET['oid']." and b.is_deleted=0 and b.user_id=u.id and b.user_id=".$_SESSION['user_id']." order by b.price asc";
+                                    from users u, bids b where b.order_id=".$_GET['oid']." and b.is_deleted=0 and b.user_id=u.id and b.user_id=".$_SESSION['user_id']." order by b.price asc";
 $queryMyBids = mysqli_query($link, $queryMyBid);
 $rowMyBids = mysqli_fetch_array($queryMyBids);
 
@@ -58,7 +58,7 @@ $rowMyBids = mysqli_fetch_array($queryMyBids);
             <div>
                 <?php
                     $queryBid = "select b.id bid_id, b.order_id, b.user_id, b.is_deleted, b.created_at, b.price, u.id as user_id, u.login, u.phone, u.email
-                                    from users u, bid b where b.is_deleted=0 and b.order_id=".$_GET['oid']." and b.user_id=u.id order by b.price asc";
+                                    from users u, bids b where b.is_deleted=0 and b.order_id=".$_GET['oid']." and b.user_id=u.id order by b.price asc";
                     $queryBids = mysqli_query($link, $queryBid);
                     $count = 1;
                 ?>

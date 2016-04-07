@@ -44,12 +44,12 @@ if ($logged) {
             $order_id = $_POST['order_id'];
             $user_id = $_SESSION['user_id'];
             $price = $_POST['price_1'];
-            $query = "INSERT into bid values(NULL, $order_id, $user_id, $price, SYSDATE(), 0)";
+            $query = "INSERT into bids values(NULL, $order_id, $user_id, $price, SYSDATE(), 0)";
             mysqli_query($link, $query);
             header("Location:?page=order&oid=$order_id#fromAddBit");
         }
         if($_GET['act'] == 'removeBid'){
-            mysqli_query($link, "UPDATE bid SET is_deleted = 1 WHERE id = " . $_GET['bid']);
+            mysqli_query($link, "UPDATE bids SET is_deleted = 1 WHERE id = " . $_GET['bid']);
             header("Location:?page=order&oid=".$_GET['oid']."#fromAddBit");
         }
 
@@ -374,6 +374,7 @@ function right_case($str_right_case){
         }
         ?></title>
     <link href="css/stylesheet.css" rel="stylesheet" type="text/css"/>
+    <link rel="shortcut icon" href="images/favicon.ico" type="image/png">
     <style type="text/css">
 
         
@@ -408,7 +409,7 @@ function right_case($str_right_case){
                 $('#raiting').click(function(){
                     $('#raiting_info h5, #raiting_info img').toggle();
                     $.get(
-                        "raiting.php",
+                        "logged/raiting.php",
                         {id_arc: id_arc, user_votes: user_votes},
                         function(data){
                             $("#raiting_info h5").html(data);

@@ -189,7 +189,7 @@ body {
 }
 .profile_info{
     display: inline-block;
-    min-width: 400px;
+    min-width: 350px;
     min-height: 500px;
     padding: 20px;
     float:left;
@@ -204,7 +204,7 @@ body {
 }
 .profile_list{
     padding: 20px;
-    width: 500px;
+    width: 600px;
     display: inline-block;
 }
 .profile_list h2 {

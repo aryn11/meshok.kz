@@ -1,5 +1,6 @@
 <?php
-$qqq = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id, u.login FROM groups g, users u
+$qqq = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id, u.login 
+                          FROM groups g, users u
 						  WHERE g.created_user_id=u.id and g.created_user_id = " . $_SESSION['user_id'];
 $queryUser = "select * from users where id=" . $_SESSION['user_id'] . " LIMIT 1";
 
@@ -106,7 +107,8 @@ $userRow = mysqli_fetch_array($queryUsers);
                     <?php
                 }
                 ?><?php
-                $queryMyGroup = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id, u.login, ug.group_id, ug.user_id FROM groups g, users u, users_in_groups ug
+                $queryMyGroup = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id, u.login, ug.group_id, ug.user_id 
+                          FROM groups g, users u, users_in_groups ug
 						  WHERE g.id=ug.group_id and ug.user_id=u.id and g.created_user_id<>" . $_SESSION['user_id'] . " and ug.user_id=" . $_SESSION['user_id'];
                 $queryMyGroups = mysqli_query($link, $queryMyGroup);
 
@@ -147,8 +149,37 @@ $userRow = mysqli_fetch_array($queryUsers);
                 </tr><!-- Table Row -->
                 <?php } ?>
             </table>
-            <?php } ?>
+            <?php } else if($_SESSION['user_type']==1){
+                $queryMyBid = "select b.id, b.order_id, b.user_id, b.price as bid_price, b.created_at, b.is_deleted, u.id as leader_id, u.login, o.id as order_id, o.good_id, o.group_id, o.quantity, o.price, gs.id, gs.name as goods_name, gp.id, gp.name as group_name, gp.created_user_id
+                from bids b, orders o, users u, goods gs, groups gp 
+                where b.user_id=".$_SESSION['user_id']." and b.order_id=o.id and o.good_id=gs.id and o.group_id=gp.id and gp.created_user_id=u.id";
+                $queryMyBids = mysqli_query($link, $queryMyBid);
 
+                ?>
+            <table class="simple-little-table" cellspacing='0'>
+
+                <tr>
+                    <th style="min-width: 100px; text-align: center; ">Заказ</th>
+                    <th>Колличество</th>
+                    <th>Предложенная цена</th>
+                    <th>Лидер группы</th>
+                    <th>Название группы</th>
+                    <th>Подробнее</th>
+                    </tr><!-- Table Header -->
+                <?php ?>
+
+                    <tr><?php while($rowMyBids = mysqli_fetch_array($queryMyBids)){ ?>
+                        <td><?php echo mb_ucfirst($rowMyBids['goods_name']); ?></td>
+                        <td><?php echo $rowMyBids['quantity']; ?></td>
+                        <td><?php echo $rowMyBids['bid_price']; ?></td>
+                        <td><a href="?page=user&uid=<?php echo $rowMyBids['leader_id']; ?>"><?php echo $rowMyBids['login']; ?></td>
+                        <td><?php echo $rowMyBids['group_name']; ?></td>
+                        <td ><a href="?page=order&oid=<?php echo $rowMyBids['order_id']; ?>">
+                                <img src="images/ic_content.png" id="ic_content"></a>
+                        </td>
+                    </tr><!-- Table Row --><?php } ?>
+            </table>
+            <?php } ?>
         </div>
     </div>
 </div>
