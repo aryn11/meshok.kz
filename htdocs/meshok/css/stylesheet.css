@@ -16,10 +16,10 @@ body {
 
 .parent{
     width: 100%;
-    min-height: 100%;
+    min-height: 90%;
     top: 0;
     left: 0;
-    overflow: auto;
+    overflow:  hidden;
 }
 
 .block-center {
@@ -44,7 +44,7 @@ body {
 }
 .block-center-profile{
     width: 1100px;
-    min-height: 800px;
+    min-height: 200px;
     top: 0;
     right: 0;
     bottom: 0;
@@ -80,6 +80,19 @@ body {
     left: 0;
     margin: auto;
 }
+.block-center-user {
+    width: 300px;
+    height: 100%;
+    min-height: 500px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+.block-center-user table{
+    margin-left: 60px;
+}
 .block-center-createGroup a{
     text-decoration: none;
     font-size: 15px;
@@ -108,12 +121,16 @@ body {
     min-height:800px;
     background-color: #f6faf8;
     box-shadow: 0 0 10px rgba(0,0,0,0.5);
-    margin: 5px 5px 5px 5px;
+    margin: 5px 5px 20px 5px;
     font-family: "Century Gothic", serif;
 }
 .a4list h2{
     text-align: center;
     padding-top:60px;
+}
+.a4list h3 {
+    font-weight: normal;
+    margin-left: 40px;
 }
 .a4list p {
     font-size:14px;
@@ -121,6 +138,16 @@ body {
 }
 .a4list hr {
     margin: 30px;
+}
+.a4list table{
+    margin-left: 40px;
+    font-size: 14px;
+}
+#a4table_td{
+    min-width: 80px;
+}
+#a4table_td_phone{
+    width: 150px;
 }
 #ic_content {
     width: 30px;
@@ -135,7 +162,7 @@ body {
 #img_add_bid{
     width:28px;
     height:28px;
-    margin-left: 20px;
+    margin-left: 5px;
     margin-bottom: 0px;
 }
 #hiden_input{
@@ -190,6 +217,7 @@ body {
     padding-top: 2px;
     padding-bottom:2px;
     background-attachment: scroll;
+
     background-repeat: no-repeat;
     background-position: right center;
 }
@@ -426,6 +454,7 @@ body {
 .input_add_bid input{
     padding: 8px;
     width: 204px;
+    margin-left: 10px;
     font-size: 15px;
     border-radius: 0.25em;
     border-color: #00A5E3 ;
@@ -436,10 +465,12 @@ body {
     width: 24px;
     height: 24px;
     float: left;
+    margin-left: 1px;
 }
 #button_addBid{
     color: white;
-    margin-left: 2px;
+    margin-left: 35px;
+    margin-top: 3px;
     padding: 8px 30px;
     background-color: #73e100;
     border-radius: 0.3em;
@@ -447,6 +478,9 @@ body {
     font-size: 12px;
     border: 2px inset #00A5E3;
     text-decoration: none;
+}
+#button_addBid:hover{
+    background-color: #5dba00;
 }
 .check_registration_buttons{
     font-family: Verdana, serif;
@@ -595,7 +629,13 @@ body {
     margin-top:10px;
 }
 #parentId {
-    margin: 5px 0 10px 0;
+    display: none;
+    margin: 5px 0 10px 6px;
+    height:85px;
+}
+#parentHint {
+    height: 85px;
+    margin: 5px 0 10px 0px;
 }
 #p_add_bid{
     margin-top: 4px;

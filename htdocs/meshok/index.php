@@ -47,7 +47,11 @@ if ($logged) {
             $price = $_POST['price_1'];
             $query = "INSERT into bid values(NULL, $order_id, $user_id, $price, SYSDATE(), 0)";
             mysqli_query($link, $query);
-            header("Location:?page=order&oid=$order_id");
+            header("Location:?page=order&oid=$order_id#fromAddBit");
+        }
+        if($_GET['act'] == 'removeBid'){
+            mysqli_query($link, "UPDATE bid SET is_deleted = 1 WHERE id = " . $_GET['bid']);
+            header("Location:?page=order&oid=".$_GET['oid']."#fromAddBit");
         }
 
         if ($_GET['act'] == 'addGroup') {
@@ -277,6 +281,9 @@ if ($logged) {
         } else if ($_GET['page'] == 'orders') {
             $page = $_GET['page'];
             $pageTitle = "Заказы • Meshok ";
+        } else if ($_GET['page'] == 'user') {
+            $page = $_GET['page'];
+            $pageTitle = "Пользователь • Meshok ";
         }
         /* else if ($_GET['page'] == 'messages') {
             $page = $_GET['page'];
@@ -468,6 +475,8 @@ function right_case($str_right_case){
         var contDiv = a.parentNode;
         var contDiv2 = document.getElementById("button_addBid").parentNode.removeChild(document.getElementById('button_addBid'));
         // Удаляем этот ДИВ из DOM-дерева
+        var img = document.getElementById("parentHint").style.display='block';
+        var rep = document.getElementById("parentId").style.display='none';
         contDiv.parentNode.removeChild(contDiv);
         // Уменьшаем значение текущего числа полей
         countOfFields--;
@@ -506,9 +515,12 @@ function right_case($str_right_case){
         curFieldNameId++;
         // Создаем элемент ДИВ
         var div = document.createElement("div");
+
+        var img = document.getElementById("parentHint").style.display='none';
+        var rep = document.getElementById("parentId").style.display='block';
         // Добавляем HTML-контент с пом. свойства innerHTML
         div.innerHTML = "<div class='input_add_bid'><input name=\"price_" + curFieldNameId + "\" type=\"text\" placeholder=\"Введите свою цену за кг\" /> <a onclick=\"return deleteBidField(this)\" href=\"#\"><img src=\"images\\ic_clear.png\"></a></div>" +
-                        "<p id=\"p_add_bid\"><input id=\"button_addBid\" type=\"submit\" value=\"Создать группу\"></p>";
+                        "<input id=\"button_addBid\" type=\"submit\" value=\"Подать заявку\">";
         // Добавляем новый узел в конец списка полей
         document.getElementById("parentId").appendChild(div);
         // Возвращаем false, чтобы не было перехода по сслыке
