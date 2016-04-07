@@ -8,7 +8,6 @@ $logged = false;
 if (isset($_SESSION['user_id'])) {
     $logged = true;
 }
-
 if ($logged) {
 
     if (isset($_GET['act'])) {
@@ -53,6 +52,7 @@ if ($logged) {
             mysqli_query($link, "UPDATE bid SET is_deleted = 1 WHERE id = " . $_GET['bid']);
             header("Location:?page=order&oid=".$_GET['oid']."#fromAddBit");
         }
+
 
         if ($_GET['act'] == 'addGroup') {
             $ag_name = $_POST['cg_name'];
@@ -247,7 +247,7 @@ if ($logged) {
             $phone = $_POST['n_phone'];
             $user_type = $_POST['n_user_type'];
 
-            $qqq2 = "insert into users values (NULL, '$login', '$pass', $user_type, SYSDATE(), '$fname', '$lname', '$email', '$address', '$phone', 0, 0)";
+            $qqq2 = "insert into users values (NULL, '$login', '$pass', $user_type, SYSDATE(), '$fname', '$lname', '$email', '$address', '$phone', 0, 0, 0)";
 
             mysqli_query($link, $qqq2);
             header("Location:?page=home#login_block");
@@ -374,6 +374,55 @@ function right_case($str_right_case){
         }
         ?></title>
     <link href="css/stylesheet.css" rel="stylesheet" type="text/css"/>
+    <style type="text/css">
+
+        
+    </style>
+    <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
+    <script type="text/javascript" src="../js/jquery.cookies.js"></script>
+    <script type="text/javascript">
+        <?php  ?>
+        $(document).ready(function(){
+            total_reiting = 4.2; // итоговый ретинг
+            id_arc = 55; // id статьи
+            var star_widht = total_reiting*17 ;
+            $('#raiting_votes').width(star_widht);
+            $('#raiting_info h5').append(total_reiting);
+            he_voted = $.cookies.get('article'+id_arc); // проверяем есть ли кука?
+            if(he_voted == null){
+                $('#raiting').hover(function() {
+                        $('#raiting_votes, #raiting_hover').toggle();
+                    },
+                    function() {
+                        $('#raiting_votes, #raiting_hover').toggle();
+                    });
+                var margin_doc = $("#raiting").offset();
+                $("#raiting").mousemove(function(e){
+                    var widht_votes = e.pageX - margin_doc.left;
+                    if (widht_votes == 0) widht_votes =1 ;
+                    user_votes = Math.ceil(widht_votes/17);
+// обратите внимание переменная  user_votes должна задаваться без var, т.к. в этом случае она будет глобальной и мы сможем к ней обратиться из другой ф-ции (нужна будет при клике на оценке.
+                    $('#raiting_hover').width(user_votes*17);
+                });
+// отправка
+                $('#raiting').click(function(){
+                    $('#raiting_info h5, #raiting_info img').toggle();
+                    $.get(
+                        "raiting.php",
+                        {id_arc: id_arc, user_votes: user_votes},
+                        function(data){
+                            $("#raiting_info h5").html(data);
+                            $('#raiting_votes').width((total_reiting + user_votes)*17/2);
+                            $('#raiting_info h5, #raiting_info img').toggle();
+                            /*$.cookies.set('article'+id_arc, 123, {hoursToLive: 1}); // создаем куку*/
+                            $("#raiting").unbind();
+
+                        }
+                    )
+                });
+            }
+        });
+    </script>
 </head>
 
 <body>
@@ -535,4 +584,6 @@ function right_case($str_right_case){
         oTextBox.select();
     }
 </script>
+
+
 </html>

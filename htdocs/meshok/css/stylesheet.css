@@ -81,7 +81,7 @@ body {
     margin: auto;
 }
 .block-center-user {
-    width: 300px;
+    width: 340px;
     height: 100%;
     min-height: 500px;
     top: 0;
@@ -92,6 +92,9 @@ body {
 }
 .block-center-user table{
     margin-left: 60px;
+}
+.block-center-user h2 {
+    margin-left:19px;
 }
 .block-center-createGroup a{
     text-decoration: none;
@@ -115,6 +118,19 @@ body {
     bottom: 0;
     left: 0;
     margin: auto;
+}
+.block-center-contacts {
+    width: 200px;
+    height: 100%;
+    min-height: 500px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
+.block-center-contacts h2{
+    margin-left: 30px;
 }
 .a4list {
     min-width: 600px;
@@ -624,6 +640,19 @@ body {
 #addButton:hover{
     background-color: #478d00;
 }
+#ratingButton{
+    color: white;
+    text-decoration: none;
+    font-weight:bold;
+    font-size: 14px;
+    border-radius: 0.3em;
+    background-color: #2dcb00;
+    padding: 5px 16px 8px 16px;
+    border: 2px inset #00A5E3;
+}
+#ratingButton:hover{
+    background-color: #478d00;
+}
 #createGroupLogin{
     width: 160px;
     margin-bottom: 15px;
@@ -753,3 +782,10 @@ body {
     color: #bd5a35;
     text-decoration:none;
 }
+#raiting {position:relative; height:16px; cursor:pointer; width:83px; float:left} /* Блок рейтинга*/
+#raiting_blank, #raiting_votes, #raiting_hover {height:16px; position:absolute}
+#raiting_blank { background:url(../images/ratings.png); width:83px; } /* "Чистые" звездочки */
+#raiting_votes {background:url(../images/ratings.png) 0 -16px} /*  Закрашенные звездочки */
+#raiting_hover {background:url(../images/ratings.png) 0 -32px; display:none}  /*  звездочки при голосовании */
+#raiting_info {margin-left:100px}
+#raiting_info img{vertical-align:middle; margin:0 5px; display:none}

@@ -10,7 +10,7 @@ $queryContacts = mysqli_query($link, $queryContact);
 $rowContact = mysqli_fetch_array($queryContacts);
 ?>
 <div class="parent">
-    <div class="block-center-user">
+    <div class="block-center-contacts">
         <div class="profile_info">
             <h2>Контакты</h2>
             <table class="profile_table">

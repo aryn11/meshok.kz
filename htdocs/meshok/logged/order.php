@@ -57,17 +57,17 @@ $rowMyBids = mysqli_fetch_array($queryMyBids);
             <?php } else if($_SESSION['user_type']==2){ ?>
             <div>
                 <?php
-                    $queryBid = "select b.id bid_id, b.order_id, b.user_id, b.is_deleted, b.created_at, b.price, u.id, u.login, u.phone, u.email
+                    $queryBid = "select b.id bid_id, b.order_id, b.user_id, b.is_deleted, b.created_at, b.price, u.id as user_id, u.login, u.phone, u.email
                                     from users u, bid b where b.is_deleted=0 and b.order_id=".$_GET['oid']." and b.user_id=u.id order by b.price asc";
                     $queryBids = mysqli_query($link, $queryBid);
                     $count = 1;
                 ?>
                 <h3>Заявки</h3>
-                    <p><?php if($rowCheck=mysqli_fetch_array($queryBids)){ echo "Заявок пока нет";} ?></p>
+                    <p></p>
                     <table>
                         <tr><?php while($rowBids=mysqli_fetch_array($queryBids)){ ?>
                             <td><?php echo $count++; ?>.</td>
-                            <td id="a4table_td"><a href="?page=user&uid=<?php echo $rowBids['bid_id']; ?>"><?php echo $rowBids['login']; ?></a></td>
+                            <td id="a4table_td"><a href="?page=user&uid=<?php echo $rowBids['user_id']; ?>"><?php echo $rowBids['login']; ?></a></td>
                             <td id="a4table_td"><?php echo $rowBids['price']; ?>тг/кг</td>
                             <td id="a4table_td_phone">+7 <?php echo $rowBids['phone']; ?></td>
                             <td ><?php echo $rowBids['email']; ?></td>

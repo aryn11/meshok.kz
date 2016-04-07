@@ -49,7 +49,13 @@ $userRow = mysqli_fetch_array($queryUsers);
                 <?php if ($userRow['role'] == 1) { ?>
                     <tr>
                         <td>Рейтинг:</td>
-                        <td></td>
+                        <td><div id="raiting_star">
+                                <div id="raiting">
+                                    <div id="raiting_blank"></div>
+                                    <div id="raiting_hover"></div>
+                                    <div id="raiting_votes"></div>
+                                </div>
+                            </div></td>
                     </tr>
                 <?php } ?>
             </table>

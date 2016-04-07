@@ -48,10 +48,24 @@ $rowUser = mysqli_fetch_array($queryUsers);
                 <?php if ($rowUser['role'] == 1) { ?>
                     <tr>
                         <td>Рейтинг:</td>
-                        <td></td>
+                        <td><div id="raiting_star">
+                                <div id="raiting">
+                                    <div id="raiting_blank"></div>
+                                    <div id="raiting_hover"></div>
+                                    <div id="raiting_votes"></div>
+                                </div>
+                            </div>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td colspan="2" style="text-align: center;"><!--<a href="#" id="ratingButton">Оценить продовца</a>-->
+                            
+                        </td>
                     </tr>
                 <?php } ?>
             </table>
+
         </div>
     </div>
 </div>
+
