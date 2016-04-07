@@ -40,6 +40,15 @@ if ($logged) {
             mysqli_query($link, $query);
             header("Location:?page=profile");
         }
+        if ($_GET['act'] == 'addBid') {
+
+            $order_id = $_POST['order_id'];
+            $user_id = $_SESSION['user_id'];
+            $price = $_POST['price_1'];
+            $query = "INSERT into bid values(NULL, $order_id, $user_id, $price, SYSDATE(), 0)";
+            mysqli_query($link, $query);
+            header("Location:?page=order&oid=$order_id");
+        }
 
         if ($_GET['act'] == 'addGroup') {
             $ag_name = $_POST['cg_name'];
@@ -264,7 +273,10 @@ if ($logged) {
             $pageTitle = "Создание заказа • Meshok";
         } else if ($_GET['page'] == 'order') {
             $page = $_GET['page'];
-            $pageTitle = "Заказ ".mb_ucfirst($_GET['oname'])." • Meshok";
+            $pageTitle = "Заказ • Meshok";
+        } else if ($_GET['page'] == 'orders') {
+            $page = $_GET['page'];
+            $pageTitle = "Заказы • Meshok ";
         }
         /* else if ($_GET['page'] == 'messages') {
             $page = $_GET['page'];
@@ -368,7 +380,7 @@ function right_case($str_right_case){
 
                 <!--видит только продавец-->
                 <?php if ($_SESSION['user_type'] == 1) { ?>
-                    <a href="?page=">
+                    <a href="?page=orders">
                         <div class="nav_button">Заказы</div>
                     </a>
 
@@ -438,10 +450,23 @@ function right_case($str_right_case){
     }
     var countOfFields = 0; // Текущее число полей
     var curFieldNameId = 0; // Уникальное значение для атрибута name
-    var maxFieldLimit = 9; // Максимальное число возможных полей
+    var maxFieldLimit = 9;
+    var maxBidFieldLimit = 1;// Максимальное число возможных полей
     function deleteField(a) {
         // Получаем доступ к ДИВу, содержащему поле
         var contDiv = a.parentNode;
+        // Удаляем этот ДИВ из DOM-дерева
+        contDiv.parentNode.removeChild(contDiv);
+        // Уменьшаем значение текущего числа полей
+        countOfFields--;
+
+        // Возвращаем false, чтобы не было перехода по сслыке
+        return false;
+    }
+    function deleteBidField(a) {
+        // Получаем доступ к ДИВу, содержащему поле
+        var contDiv = a.parentNode;
+        var contDiv2 = document.getElementById("button_addBid").parentNode.removeChild(document.getElementById('button_addBid'));
         // Удаляем этот ДИВ из DOM-дерева
         contDiv.parentNode.removeChild(contDiv);
         // Уменьшаем значение текущего числа полей
@@ -463,7 +488,27 @@ function right_case($str_right_case){
         // Создаем элемент ДИВ
         var div = document.createElement("div");
         // Добавляем HTML-контент с пом. свойства innerHTML
-        div.innerHTML = "<p class='input_add_member'><input name=\"name_" + curFieldNameId + "\" type=\"text\" placeholder=\"type user login\" /> <a onclick=\"return deleteField(this)\" href=\"#\">X</a></p>";
+        div.innerHTML = "<div class='input_add_member'><input name=\"name_" + curFieldNameId + "\" type=\"text\" placeholder=\"type user login\" /> <a onclick=\"return deleteField(this)\" href=\"#\"><img src=\"images\\ic_clear.png\"></a></div>";
+        // Добавляем новый узел в конец списка полей
+        document.getElementById("parentId").appendChild(div);
+        // Возвращаем false, чтобы не было перехода по сслыке
+        return false;
+    }
+    function addBidField() {
+        // Проверяем, не достигло ли число полей максимума
+        if (countOfFields >= maxBidFieldLimit) {
+
+            return false;
+        }
+        // Увеличиваем текущее значение числа полей
+        countOfFields++;
+        // Увеличиваем ID
+        curFieldNameId++;
+        // Создаем элемент ДИВ
+        var div = document.createElement("div");
+        // Добавляем HTML-контент с пом. свойства innerHTML
+        div.innerHTML = "<div class='input_add_bid'><input name=\"price_" + curFieldNameId + "\" type=\"text\" placeholder=\"Введите свою цену за кг\" /> <a onclick=\"return deleteBidField(this)\" href=\"#\"><img src=\"images\\ic_clear.png\"></a></div>" +
+                        "<p id=\"p_add_bid\"><input id=\"button_addBid\" type=\"submit\" value=\"Создать группу\"></p>";
         // Добавляем новый узел в конец списка полей
         document.getElementById("parentId").appendChild(div);
         // Возвращаем false, чтобы не было перехода по сслыке

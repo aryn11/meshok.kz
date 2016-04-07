@@ -39,8 +39,9 @@ $queryL = mysqli_query($link, $query);
             ?>
             <p class="input_registration">Способ оплаты:
                 <select name="payment">
+                    <option value="Наличные">Наличные</option>
                     <option value="WebMoney">Webmoney Transfer</option>
-                    <option value="Yandex">Яндекс.Деньги</option>
+                    <option value="Yandex.Money">Яндекс.Деньги</option>
                     <option value="Visa">Visa, MasterCard</option>
                     <option value="Qiwi">QIWI</option>
                 </select></p>
