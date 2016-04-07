@@ -1,6 +1,15 @@
-<?php $queryOrderForB = "select o.id as order_id, o.good_id, o.group_id, o.created_at, o.quantity, o.price, o.is_deleted, g.id, g.created_user_id, g.name as group_name, u.id as leader_id, u.login, gs.id, gs.name as good_name, gs.type
+<?php if(isset($_GET['sort'])){
+    $sort=$_GET['sort'];
+    $type=$_GET['type'];
+
+}else{
+    $sort="o.created_at";
+    $type="desc";
+}
+
+$queryOrderForB = "select o.id as order_id, o.good_id, o.group_id, o.created_at, o.quantity, o.price, o.is_deleted, g.id, g.created_user_id, g.name as group_name, u.id as leader_id, u.login, gs.id, gs.name as good_name, gs.type
 from orders o, groups g, users u, goods gs
-where o.good_id=gs.id and o.group_id=g.id and g.created_user_id=u.id and o.is_deleted=0 order by o.created_at desc";
+where o.good_id=gs.id and o.group_id=g.id and g.created_user_id=u.id and o.is_deleted=0 order by ".$sort." ".$type;
 $queryOrdersForB = mysqli_query($link, $queryOrderForB);
 ?>
 <div class="parent">
@@ -8,9 +17,10 @@ $queryOrdersForB = mysqli_query($link, $queryOrderForB);
         <table class="simple-little-table" cellspacing='0'>
 
             <tr>
-                <th style="min-width: 100px; text-align: center; ">Заказ</th>
-                <th>Количество</th>
-                <th>Цена</th>
+                <th id="oth1"><div style="line-height: 30px;"> Заказ <a id="arrow_img_a" href="?page=orders&sort=gs.name&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=orders&sort=gs.name&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
+                <th id="oth2"><div style="line-height: 30px;"> Количество <a id="arrow_img_a" href="?page=orders&sort=o.quantity&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=orders&sort=o.quantity&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
+                <th id="oth1"><div style="line-height: 30px;"> Цена <a id="arrow_img_a" href="?page=orders&sort=o.price&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=orders&sort=o.price&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
+
                 <th>Лидер группы</th>
                 <th>Название группы</th>
                 <th style="min-width: 100px;">Создан</th>

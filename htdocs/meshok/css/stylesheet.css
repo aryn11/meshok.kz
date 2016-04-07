@@ -290,7 +290,24 @@ body {
     float: right;
 
 }
-
+#arrow_img_a{
+    margin-left: 5px;
+}
+#arrows_img{
+    width: 8px;
+    height: 11px;
+    opacity: 0.1;
+}
+#arrows_img:hover{
+    opacity:0.3;
+}
+#oth1{
+    min-width: 70px;
+    text-align: center;
+}
+#oth2{
+    min-width: 103px;
+}
 .nav_button {
     width: 120px; /*This number you can edit when you need to add more with to fit your text inside the button */
     color: #FFFFFF;
