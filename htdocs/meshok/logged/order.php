@@ -63,7 +63,7 @@ $rowMyBids = mysqli_fetch_array($queryMyBids);
                     $count = 1;
                 ?>
                 <h3>Заявки</h3>
-
+                    <p><?php if($rowCheck=mysqli_fetch_array($queryBids)){ echo "Заявок пока нет";} ?></p>
                     <table>
                         <tr><?php while($rowBids=mysqli_fetch_array($queryBids)){ ?>
                             <td><?php echo $count++; ?>.</td>

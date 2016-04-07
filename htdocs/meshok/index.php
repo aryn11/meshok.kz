@@ -250,7 +250,7 @@ if ($logged) {
             $qqq2 = "insert into users values (NULL, '$login', '$pass', $user_type, SYSDATE(), '$fname', '$lname', '$email', '$address', '$phone', 0, 0)";
 
             mysqli_query($link, $qqq2);
-            header("Location:?page=home");
+            header("Location:?page=home#login_block");
 
         }
     }
@@ -284,6 +284,9 @@ if ($logged) {
         } else if ($_GET['page'] == 'user') {
             $page = $_GET['page'];
             $pageTitle = "Пользователь • Meshok ";
+        } else if ($_GET['page'] == 'contacts'){
+            $page = $_GET['page'];
+            $pageTitle = "Контакты • Meshok ";
         }
         /* else if ($_GET['page'] == 'messages') {
             $page = $_GET['page'];
@@ -398,7 +401,7 @@ function right_case($str_right_case){
                     </a>
                 <?php } ?>
 
-                <a href="?page=">
+                <a href="?page=contacts">
                     <div class="nav_button">Контакты</div>
                 </a>
                 <a href="?act=logout">
@@ -499,7 +502,7 @@ function right_case($str_right_case){
         // Добавляем HTML-контент с пом. свойства innerHTML
         div.innerHTML = "<div class='input_add_member'><input name=\"name_" + curFieldNameId + "\" type=\"text\" placeholder=\"type user login\" /> <a onclick=\"return deleteField(this)\" href=\"#\"><img src=\"images\\ic_clear.png\"></a></div>";
         // Добавляем новый узел в конец списка полей
-        document.getElementById("parentId").appendChild(div);
+        document.getElementById("parentIdGroup").appendChild(div);
         // Возвращаем false, чтобы не было перехода по сслыке
         return false;
     }

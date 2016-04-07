@@ -330,7 +330,7 @@ body {
 }
 
 #sign_in_text{
-    margin: 6px 20px;
+    margin: 6px 8px;
     font-family: Verdana, serif;
 
 }
@@ -466,6 +466,9 @@ body {
     height: 24px;
     float: left;
     margin-left: 1px;
+}
+#create_group{
+    margin-top: 15px;
 }
 #button_addBid{
     color: white;
@@ -632,6 +635,9 @@ body {
     display: none;
     margin: 5px 0 10px 6px;
     height:85px;
+}
+#parentIdGroup{
+    margin: 23px 0 10px 6px;
 }
 #parentHint {
     height: 85px;
