@@ -16,9 +16,9 @@ if(isset($_GET['sortB'])){
     $typeB="desc";
 }
 
-$qqq = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id, u.login 
+$qqq = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, g.created_user_id, u.id, u.login 
                           FROM groups g, users u
-						  WHERE g.created_user_id=u.id and g.created_user_id = " . $_SESSION['user_id']." order by ".$sortB." ".$typeB;
+						  WHERE g.is_deleted=0 and g.created_user_id=u.id and g.created_user_id = " . $_SESSION['user_id']." order by ".$sortB." ".$typeB;
 $query = mysqli_query($link, $qqq);
 
 
@@ -100,7 +100,7 @@ $userRow = mysqli_fetch_array($queryUsers);
                         ?>
 
                         <tr>
-                            <td><?php echo $row['name']; ?></td>
+                            <td><a href="?page=group&gid=<?php echo $row['group_id']; ?>"><?php echo $row['name']; ?></a></td>
                             <td><?php
                                 $date = new DateTime($row['created_at']);
                                 echo $date->Format('j F H:i');
@@ -125,9 +125,9 @@ $userRow = mysqli_fetch_array($queryUsers);
                         <?php
                     }
                     ?><?php
-                    $queryMyGroup = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id, u.login, ug.group_id, ug.user_id 
+                    $queryMyGroup = "SELECT g.id as group_id, g.created_user_id, g.name, g.is_deleted, g.created_at, u.id, u.login, ug.group_id, ug.user_id 
                           FROM groups g, users u, users_in_groups ug
-						  WHERE g.id=ug.group_id and ug.user_id=u.id and g.created_user_id<>" . $_SESSION['user_id'] . " and ug.user_id=" . $_SESSION['user_id'];
+						  WHERE g.is_deleted=0 and g.id=ug.group_id and ug.user_id=u.id and g.created_user_id<>" . $_SESSION['user_id'] . " and ug.user_id=" . $_SESSION['user_id'];
                     $queryMyGroups = mysqli_query($link, $queryMyGroup);
 
                     ?>
@@ -138,8 +138,9 @@ $userRow = mysqli_fetch_array($queryUsers);
                             <td><?php $date = new DateTime($rowMyGroups['created_at']);
                                 echo $date->Format('F j H:i'); ?></td>
                             <td style="text-align: left;"><?php
-                                $queryMyGroupsUser = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id as user_id, u.login, ug.group_id, ug.user_id FROM groups g, users u, users_in_groups ug
-						                          WHERE ug.group_id = " . $rowMyGroups['group_id'] . " and u.id=ug.user_id and g.id=ug.group_id";
+                                $queryMyGroupsUser = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, g.is_deleted, u.id as user_id, u.login, ug.group_id, ug.user_id 
+                                                      FROM groups g, users u, users_in_groups ug
+						                              WHERE ug.group_id = " . $rowMyGroups['group_id'] . " and g.is_deleted=0 and u.id=ug.user_id and g.id=ug.group_id";
                                 $queryMyGroupsUsers = mysqli_query($link, $queryMyGroupsUser);
                                 while ($rowMyGroupsUser = mysqli_fetch_array($queryMyGroupsUsers)) {
                                     if ($rowMyGroupsUser['login'] != $_SESSION['user_login']) {
@@ -168,9 +169,9 @@ $userRow = mysqli_fetch_array($queryUsers);
                     <?php } ?>
                 </table>
             <?php } else if ($_SESSION['user_type'] == 1) {
-                $queryMyBid = "select b.id, b.order_id, b.user_id, b.price as bid_price, b.created_at, b.is_deleted, u.id as leader_id, u.login, o.id as order_id, o.good_id, o.group_id, o.quantity, o.price, gs.id, gs.name as goods_name, gp.id, gp.name as group_name, gp.created_user_id
+                $queryMyBid = "select b.id, b.order_id, b.user_id, b.price as bid_price, b.created_at, b.is_deleted, u.id as leader_id, u.login, o.id as order_id, o.good_id, o.group_id, o.quantity, o.price, gs.id, gs.name as goods_name, gp.id, gp.name as group_name, gp.created_user_id, gp.is_deleted
                 from bids b, orders o, users u, goods gs, groups gp 
-                where b.user_id=" . $_SESSION['user_id'] . " and b.order_id=o.id and o.good_id=gs.id and o.group_id=gp.id and gp.created_user_id=u.id and b.is_deleted=0 order by ".$sort." ".$type;
+                where gp.is_deleted=0 and b.user_id=" . $_SESSION['user_id'] . " and b.order_id=o.id and o.good_id=gs.id and o.group_id=gp.id and gp.created_user_id=u.id and b.is_deleted=0 order by ".$sort." ".$type;
                 $queryMyBids = mysqli_query($link, $queryMyBid);
 
                 ?>

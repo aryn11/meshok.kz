@@ -7,9 +7,9 @@
     $type="desc";
 }
 
-$queryOrderForB = "select o.id as order_id, o.good_id, o.group_id, o.created_at, o.quantity, o.price, o.is_deleted, g.id, g.created_user_id, g.name as group_name, u.id as leader_id, u.login, gs.id, gs.name as good_name, gs.type
+$queryOrderForB = "select o.id as order_id, o.good_id, o.group_id, o.created_at, o.quantity, o.price, o.is_deleted, g.id, g.created_user_id, g.is_deleted, g.name as group_name, u.id as leader_id, u.login, gs.id, gs.name as good_name, gs.type
 from orders o, groups g, users u, goods gs
-where o.good_id=gs.id and o.group_id=g.id and g.created_user_id=u.id and o.is_deleted=0 order by ".$sort." ".$type;
+where g.is_deleted=0 and o.good_id=gs.id and o.group_id=g.id and g.created_user_id=u.id and o.is_deleted=0 order by ".$sort." ".$type;
 $queryOrdersForB = mysqli_query($link, $queryOrderForB);
 ?>
 <div class="parent">

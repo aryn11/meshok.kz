@@ -65,10 +65,14 @@ if ($logged) {
                                                   address=\"".$address."\",
                                                   phone=\"".$phone."\" WHERE id =". $_SESSION['user_id']);
             header("Location:?page=profile");
-
+        }if($_GET['act'] == 'changeGroupData'){
+            $c_name = $_POST['c_gname'];
+            $c_gid = $_POST['c_gid'];
+            mysqli_query($link, "UPDATE groups SET name=\"".$c_name."\" WHERE id =". $c_gid);
+            header("Location:?page=group&gid=".$c_gid);
+        } if($_GET['act']=='removeGroup'){
+            mysqli_query($link, "UPDATE groups SET is_deleted=1 WHERE id =".$_GET['gid']." and created_user_id=".$_GET['uid']);
         }
-
-
         if ($_GET['act'] == 'addGroup') {
             $ag_name = $_POST['cg_name'];
             $qAddingGroup = "INSERT into groups values(NULL, " . $_SESSION['user_id'] . ", '$ag_name', SYSDATE(), 0)";
@@ -306,6 +310,12 @@ if ($logged) {
         } else if ($_GET['page'] == 'profileSettings'){
             $page = $_GET['page'];
             $pageTitle = "Изменение профиля ".$_SESSION['user_login']." • Meshok ";
+        } else if ($_GET['page'] == 'group'){
+            $page = $_GET['page'];
+            $pageTitle = "Группа • Meshok ";
+        } else if ($_GET['page'] == 'groupSettings'){
+            $page = $_GET['page'];
+            $pageTitle = "Настройка группы • Meshok ";
         }
         /* else if ($_GET['page'] == 'messages') {
             $page = $_GET['page'];
