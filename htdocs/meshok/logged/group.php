@@ -40,6 +40,8 @@ $rowGroup=mysqli_fetch_array($queryGroups);
                 </tr>
 
             </table>
+            <p style="margin-left: 20px;"><a href="#" onclick="window.history.back();" id="arrow_back"><img src="images/ic_arrow.png"></a></p>
+
         </div>
     </div>
 </div>

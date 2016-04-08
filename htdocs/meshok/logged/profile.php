@@ -134,7 +134,7 @@ $userRow = mysqli_fetch_array($queryUsers);
                     <?php while ($rowMyGroups = mysqli_fetch_array($queryMyGroups)) {
                         ?>
                         <tr>
-                            <td><?php echo $rowMyGroups['name']; ?></td>
+                            <td><a href="?page=group&gid=<?php echo $rowMyGroups['group_id']; ?>"><?php echo $rowMyGroups['name']; ?></a></td>
                             <td><?php $date = new DateTime($rowMyGroups['created_at']);
                                 echo $date->Format('F j H:i'); ?></td>
                             <td style="text-align: left;"><?php
@@ -169,7 +169,7 @@ $userRow = mysqli_fetch_array($queryUsers);
                     <?php } ?>
                 </table>
             <?php } else if ($_SESSION['user_type'] == 1) {
-                $queryMyBid = "select b.id, b.order_id, b.user_id, b.price as bid_price, b.created_at, b.is_deleted, u.id as leader_id, u.login, o.id as order_id, o.good_id, o.group_id, o.quantity, o.price, gs.id, gs.name as goods_name, gp.id, gp.name as group_name, gp.created_user_id, gp.is_deleted
+                $queryMyBid = "select b.id, b.order_id, b.user_id, b.price as bid_price, b.created_at, b.is_deleted, u.id as leader_id, u.login, o.id as order_id, o.good_id, o.group_id, o.quantity, o.price, gs.id, gs.name as goods_name, gp.id as group_id, gp.name as group_name, gp.created_user_id, gp.is_deleted
                 from bids b, orders o, users u, goods gs, groups gp 
                 where gp.is_deleted=0 and b.user_id=" . $_SESSION['user_id'] . " and b.order_id=o.id and o.good_id=gs.id and o.group_id=gp.id and gp.created_user_id=u.id and b.is_deleted=0 order by ".$sort." ".$type;
                 $queryMyBids = mysqli_query($link, $queryMyBid);
@@ -194,7 +194,7 @@ $userRow = mysqli_fetch_array($queryUsers);
                         <td>
                             <a href="?page=user&uid=<?php echo $rowMyBids['leader_id']; ?>"><?php echo $rowMyBids['login']; ?>
                         </td>
-                        <td><?php echo $rowMyBids['group_name']; ?></td>
+                        <td><a href="?page=group&gid=<?php echo $rowMyBids['group_id']; ?>"><?php echo $rowMyBids['group_name']; ?></a></td>
                         <td><a href="?page=order&oid=<?php echo $rowMyBids['order_id']; ?>">
                                 <img src="images/ic_content.png" id="ic_content"></a>
                         </td>

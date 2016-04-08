@@ -157,7 +157,9 @@ body {
 }
 .a4list h2{
     text-align: center;
-    padding-top:60px;
+    padding-top: 30px;
+    display: inline-block;
+    margin-left: 150px;
 }
 .a4list h3 {
     font-weight: normal;
@@ -240,6 +242,10 @@ body {
 }
 #delete_group_div{
     margin-top:150px;
+}
+#arrow_back_absolute{
+    margin-left: 30px;
+    display: inline-block;
 }
 .profile_info{
     display: inline-block;

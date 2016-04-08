@@ -12,9 +12,13 @@ $rowMyBids = mysqli_fetch_array($queryMyBids);
 
 //$order_type = right_case(trim($_GET['oname']));
 ?>
+
 <div class="parent">
     <div class="block-center-order">
+
+
         <div class="a4list">
+            <p id="arrow_back_absolute"><a href="#" onclick="window.history.back();" id="arrow_back"><img width="40" src="images/ic_arrow.png"></a></p>
             <h2>Заказ на <b><?php echo right_case($rowOrder['good_name']); ?></b></h2>
             <hr>
             <p>Ф.И.О заказчика <b><?php echo $rowOrder['fname']; ?><?php echo $rowOrder['lname']; ?></b></p>
