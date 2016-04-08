@@ -380,7 +380,8 @@ function right_case($str_right_case){
         
     </style>
     <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.3.2/jquery.min.js"></script>
-    <script type="text/javascript" src="../js/jquery.cookies.js"></script>
+    <script type="text/javascript" src="js/jquery.cookies.js"></script>
+    <script type="text/javascript" src="js/jquery.js"></script>
     <script type="text/javascript">
         <?php  ?>
         $(document).ready(function(){

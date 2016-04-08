@@ -189,7 +189,7 @@ body {
 }
 .profile_info{
     display: inline-block;
-    min-width: 350px;
+    min-width: 320px;
     min-height: 500px;
     padding: 20px;
     float:left;
@@ -307,6 +307,9 @@ body {
 }
 #oth2{
     min-width: 103px;
+}
+#oth3{
+    min-width: 120px;
 }
 .nav_button {
     width: 120px; /*This number you can edit when you need to add more with to fit your text inside the button */

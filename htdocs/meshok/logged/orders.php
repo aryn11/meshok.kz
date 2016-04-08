@@ -21,9 +21,9 @@ $queryOrdersForB = mysqli_query($link, $queryOrderForB);
                 <th id="oth2"><div style="line-height: 30px;"> Количество <a id="arrow_img_a" href="?page=orders&sort=o.quantity&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=orders&sort=o.quantity&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
                 <th id="oth1"><div style="line-height: 30px;"> Цена <a id="arrow_img_a" href="?page=orders&sort=o.price&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=orders&sort=o.price&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
 
-                <th>Лидер группы</th>
-                <th>Название группы</th>
-                <th style="min-width: 100px;">Создан</th>
+                <th id="oth1"><div style="line-height: 30px;"> Лидер <a id="arrow_img_a" href="?page=orders&sort=u.login&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=orders&sort=u.login&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
+                <th id="oth1"><div style="line-height: 30px;"> Группа <a id="arrow_img_a" href="?page=orders&sort=g.name&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=orders&sort=g.name&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
+                <th id="oth1"><div style="line-height: 30px;"> Создан <a id="arrow_img_a" href="?page=orders&sort=o.created_at&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=orders&sort=o.created_at&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
                 <th>Подробнее</th>
             </tr><!-- Table Header -->
             <?php while ($rowOrdersB = mysqli_fetch_array($queryOrdersForB)) { ?>

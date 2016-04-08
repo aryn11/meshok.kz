@@ -1,7 +1,25 @@
 <?php
+if(isset($_GET['sort'])){
+    $sort=$_GET['sort'];
+    $type=$_GET['type'];
+
+}else{
+    $sort="b.created_at";
+    $type="desc";
+}
+if(isset($_GET['sortB'])){
+    $sortB=$_GET['sortB'];
+    $typeB=$_GET['type'];
+
+}else{
+    $sortB="g.created_at";
+    $type="desc";
+}
+
 $qqq = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id, u.login 
                           FROM groups g, users u
 						  WHERE g.created_user_id=u.id and g.created_user_id = " . $_SESSION['user_id'];
+
 $queryUser = "select * from users where id=" . $_SESSION['user_id'] . " LIMIT 1";
 
 //print $qqq;
@@ -50,135 +68,139 @@ $userRow = mysqli_fetch_array($queryUsers);
                 <?php if ($userRow['role'] == 1) { ?>
                     <tr>
                         <td>Рейтинг:</td>
-                        <td><div id="raiting_star">
+                        <td>
+                            <div id="raiting_star">
                                 <div id="raiting">
                                     <div id="raiting_blank"></div>
                                     <div id="raiting_hover"></div>
                                     <div id="raiting_votes"></div>
                                 </div>
-                            </div></td>
+                            </div>
+                        </td>
                     </tr>
                 <?php } ?>
             </table>
         </div>
         <div class="profile_list">
             <?php if ($_SESSION['user_type'] == 2) { ?>
-            <h2>Управление</h2>
-            <table class="simple-little-table" cellspacing='0'>
-
-                <tr>
-                    <th>Название</th>
-                    <th>Создана</th>
-                    <th>Участники</th>
-                    <th style="padding: 0 80px; ">Заказы</th>
-                    <th>Создать заказ</th>
-                </tr><!-- Table Header -->
-
-                <?php while ($row = mysqli_fetch_array($query)) {
-                    $qqq2 = "SELECT id, group_id, user_id, user_login FROM users_in_groups
-						        WHERE group_id = " . $row['group_id'];
-                    $query2 = mysqli_query($link, $qqq2);
-
-                    ?>
+                <h2>Управление</h2>
+                <table class="simple-little-table" cellspacing='0'>
 
                     <tr>
-                        <td><?php echo $row['name']; ?></td>
-                        <td><?php
-                            $date = new DateTime($row['created_at']);
-                            echo $date->Format('F j H:i');
-                            ?></td>
-                        <td style="text-align: left; "><?php while ($row2 = mysqli_fetch_array($query2)) {
-                                if ($row2['user_login'] != $_SESSION['user_login']) {
-                                    echo "<a href=\"?page=user&uid=" . $row2['user_id'] . "\">" . $row2['user_login'] . "</a><br> ";
-                                }
-                            } ?></td>
-                        <td style="text-align: left; padding-top: 35px;"><?php $queryOrders = "select o.id as order_id, o.good_id, o.group_id, o.quantity, o.price, o.payment, o.is_deleted, gs.id, gs.name as good_name 
-                                              from orders o, goods gs 
-                                              where o.is_deleted = 0 and gs.id = o.good_id and o.group_id=" . $row['group_id'];
-                            $runQueryOrders = mysqli_query($link, $queryOrders);
-                            while ($rowOrders = mysqli_fetch_array($runQueryOrders)){ ?>
-                            <a href="?page=order&oid=<?php echo $rowOrders['order_id']; ?>"><?php
-                                echo mb_ucfirst($rowOrders['good_name']) . " " . $rowOrders['quantity'] . "кг/" . $rowOrders['price'] . "тг</br></br>";
-                                ?> </a> <?php }
-                            ?></a></td>
-                        <td><a id="addOrderButton" href="?page=addOrder&mid=<?php print $row['group_id']; ?>">+</a>
-                        </td>
-                    </tr><!-- Table Row -->
-                    <?php
-                }
-                ?><?php
-                $queryMyGroup = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id, u.login, ug.group_id, ug.user_id 
-                          FROM groups g, users u, users_in_groups ug
-						  WHERE g.id=ug.group_id and ug.user_id=u.id and g.created_user_id<>" . $_SESSION['user_id'] . " and ug.user_id=" . $_SESSION['user_id'];
-                $queryMyGroups = mysqli_query($link, $queryMyGroup);
+                        <th>Название</th>
+                        <th>Создана</th>
+                        <th>Участники</th>
+                        <th style="padding: 0 80px; ">Заказы</th>
+                        <th>Создать заказ</th>
+                    </tr><!-- Table Header -->
 
-                ?>
-                <?php while ($rowMyGroups = mysqli_fetch_array($queryMyGroups)) {
-                ?>
-                <tr>
-                    <td><?php echo $rowMyGroups['name']; ?></td>
-                    <td><?php $date = new DateTime($rowMyGroups['created_at']);
-                        echo $date->Format('F j H:i'); ?></td>
-                    <td style="text-align: left;"><?php
-                        $queryMyGroupsUser = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id as user_id, u.login, ug.group_id, ug.user_id FROM groups g, users u, users_in_groups ug
-						                          WHERE ug.group_id = " . $rowMyGroups['group_id'] . " and u.id=ug.user_id and g.id=ug.group_id";
-                        $queryMyGroupsUsers = mysqli_query($link, $queryMyGroupsUser);
-                        while ($rowMyGroupsUser = mysqli_fetch_array($queryMyGroupsUsers)) {
-                            if ($rowMyGroupsUser['login'] != $_SESSION['user_login']) {
-                                if ($rowMyGroupsUser['created_user_id'] == $rowMyGroupsUser['user_id']) {
-                                    echo "<a href=\"?page=user&uid=" . $rowMyGroupsUser['user_id'] . "\">" . $rowMyGroupsUser['login'] . " (L)</a></br>";
-                                    continue;
-                                }
-                                echo "<a href=\"?page=user&uid=" . $rowMyGroupsUser['user_id'] . "\">" . $rowMyGroupsUser['login'] . "</a></br>";
-                            }
-                        }
+                    <?php while ($row = mysqli_fetch_array($query)) {
+                        $qqq2 = "SELECT id, group_id, user_id, user_login FROM users_in_groups
+						        WHERE group_id = " . $row['group_id'];
+                        $query2 = mysqli_query($link, $qqq2);
 
                         ?>
-                    </td>
-                    <td style="text-align: left; padding-top: 35px;"><?php $queryOrders = "select o.id as order_id, o.good_id, o.group_id, o.quantity, o.price, o.payment, o.is_deleted, gs.id, gs.name as good_name 
+
+                        <tr>
+                            <td><?php echo $row['name']; ?></td>
+                            <td><?php
+                                $date = new DateTime($row['created_at']);
+                                echo $date->Format('F j H:i');
+                                ?></td>
+                            <td style="text-align: left; "><?php while ($row2 = mysqli_fetch_array($query2)) {
+                                    if ($row2['user_login'] != $_SESSION['user_login']) {
+                                        echo "<a href=\"?page=user&uid=" . $row2['user_id'] . "\">" . $row2['user_login'] . "</a><br> ";
+                                    }
+                                } ?></td>
+                            <td style="text-align: left; padding-top: 35px;"><?php $queryOrders = "select o.id as order_id, o.good_id, o.group_id, o.quantity, o.price, o.payment, o.is_deleted, gs.id, gs.name as good_name 
+                                              from orders o, goods gs 
+                                              where o.is_deleted = 0 and gs.id = o.good_id and o.group_id=" . $row['group_id'];
+                                $runQueryOrders = mysqli_query($link, $queryOrders);
+                                while ($rowOrders = mysqli_fetch_array($runQueryOrders)){ ?>
+                                <a href="?page=order&oid=<?php echo $rowOrders['order_id']; ?>"><?php
+                                    echo mb_ucfirst($rowOrders['good_name']) . " " . $rowOrders['quantity'] . "кг/" . $rowOrders['price'] . "тг</br></br>";
+                                    ?> </a> <?php }
+                                ?></a></td>
+                            <td><a id="addOrderButton" href="?page=addOrder&mid=<?php print $row['group_id']; ?>">+</a>
+                            </td>
+                        </tr><!-- Table Row -->
+                        <?php
+                    }
+                    ?><?php
+                    $queryMyGroup = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id, u.login, ug.group_id, ug.user_id 
+                          FROM groups g, users u, users_in_groups ug
+						  WHERE g.id=ug.group_id and ug.user_id=u.id and g.created_user_id<>" . $_SESSION['user_id'] . " and ug.user_id=" . $_SESSION['user_id'];
+                    $queryMyGroups = mysqli_query($link, $queryMyGroup);
+
+                    ?>
+                    <?php while ($rowMyGroups = mysqli_fetch_array($queryMyGroups)) {
+                        ?>
+                        <tr>
+                            <td><?php echo $rowMyGroups['name']; ?></td>
+                            <td><?php $date = new DateTime($rowMyGroups['created_at']);
+                                echo $date->Format('F j H:i'); ?></td>
+                            <td style="text-align: left;"><?php
+                                $queryMyGroupsUser = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id as user_id, u.login, ug.group_id, ug.user_id FROM groups g, users u, users_in_groups ug
+						                          WHERE ug.group_id = " . $rowMyGroups['group_id'] . " and u.id=ug.user_id and g.id=ug.group_id";
+                                $queryMyGroupsUsers = mysqli_query($link, $queryMyGroupsUser);
+                                while ($rowMyGroupsUser = mysqli_fetch_array($queryMyGroupsUsers)) {
+                                    if ($rowMyGroupsUser['login'] != $_SESSION['user_login']) {
+                                        if ($rowMyGroupsUser['created_user_id'] == $rowMyGroupsUser['user_id']) {
+                                            echo "<a href=\"?page=user&uid=" . $rowMyGroupsUser['user_id'] . "\">" . $rowMyGroupsUser['login'] . " (L)</a></br>";
+                                            continue;
+                                        }
+                                        echo "<a href=\"?page=user&uid=" . $rowMyGroupsUser['user_id'] . "\">" . $rowMyGroupsUser['login'] . "</a></br>";
+                                    }
+                                }
+
+                                ?>
+                            </td>
+                            <td style="text-align: left; padding-top: 35px;"><?php $queryOrders = "select o.id as order_id, o.good_id, o.group_id, o.quantity, o.price, o.payment, o.is_deleted, gs.id, gs.name as good_name 
                                               from orders o, goods gs 
                                               where o.is_deleted = 0 and gs.id = o.good_id and o.group_id=" . $rowMyGroups['group_id'];
-                        $runQueryOrders = mysqli_query($link, $queryOrders);
-                        while ($rowOrders = mysqli_fetch_array($runQueryOrders)){ ?>
-                        <a href="?page=order&oid=<?php echo $rowOrders['order_id']; ?>"><?php
-                            echo mb_ucfirst($rowOrders['good_name']) . " " . $rowOrders['quantity'] . "кг/" . $rowOrders['price'] . "тг</br></br>";
-                            ?> </a> <?php }
-                        ?></a>
-                    </td>
-                    <td>Вы участник</td>
-                </tr><!-- Table Row -->
-                <?php } ?>
-            </table>
-            <?php } else if($_SESSION['user_type']==1){
+                                $runQueryOrders = mysqli_query($link, $queryOrders);
+                                while ($rowOrders = mysqli_fetch_array($runQueryOrders)){ ?>
+                                <a href="?page=order&oid=<?php echo $rowOrders['order_id']; ?>"><?php
+                                    echo mb_ucfirst($rowOrders['good_name']) . " " . $rowOrders['quantity'] . "кг/" . $rowOrders['price'] . "тг</br></br>";
+                                    ?> </a> <?php }
+                                ?></a>
+                            </td>
+                            <td>Вы участник</td>
+                        </tr><!-- Table Row -->
+                    <?php } ?>
+                </table>
+            <?php } else if ($_SESSION['user_type'] == 1) {
                 $queryMyBid = "select b.id, b.order_id, b.user_id, b.price as bid_price, b.created_at, b.is_deleted, u.id as leader_id, u.login, o.id as order_id, o.good_id, o.group_id, o.quantity, o.price, gs.id, gs.name as goods_name, gp.id, gp.name as group_name, gp.created_user_id
                 from bids b, orders o, users u, goods gs, groups gp 
-                where b.user_id=".$_SESSION['user_id']." and b.order_id=o.id and o.good_id=gs.id and o.group_id=gp.id and gp.created_user_id=u.id";
+                where b.user_id=" . $_SESSION['user_id'] . " and b.order_id=o.id and o.good_id=gs.id and o.group_id=gp.id and gp.created_user_id=u.id and b.is_deleted=0 order by ".$sort." ".$type;;
                 $queryMyBids = mysqli_query($link, $queryMyBid);
 
                 ?>
-            <table class="simple-little-table" cellspacing='0'>
+                <table class="simple-little-table" cellspacing='0'>
 
-                <tr>
-                    <th style="min-width: 100px; text-align: center; ">Заказ</th>
-                    <th>Колличество</th>
-                    <th>Предложенная цена</th>
-                    <th>Лидер группы</th>
-                    <th>Название группы</th>
-                    <th>Подробнее</th>
+                    <tr>
+                        <th id="oth1"><div style="line-height: 30px;"> Заказ <a id="arrow_img_a" href="?page=profile&sort=gs.name&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=profile&sort=gs.name&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
+                        <th id="oth2"><div style="line-height: 30px;"> Количество <a id="arrow_img_a" href="?page=profile&sort=o.quantity&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=profile&sort=o.quantity&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
+                        <th id="oth3">Предложенная<a id="arrow_img_a" href="?page=profile&sort=b.price&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=profile&sort=b.price&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a><br>цена</th>
+                        <th id="oth1"><div style="line-height: 30px;"> Лидер <a id="arrow_img_a" href="?page=profile&sort=u.login&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=profile&sort=u.login&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
+                        <th id="oth1"><div style="line-height: 30px;"> Группа <a id="arrow_img_a" href="?page=profile&sort=gp.name&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=profile&sort=gp.name&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
+                        <th>Подробнее</th>
                     </tr><!-- Table Header -->
-                <?php ?>
+                    <?php ?>
 
-                    <tr><?php while($rowMyBids = mysqli_fetch_array($queryMyBids)){ ?>
+                    <tr><?php while ($rowMyBids = mysqli_fetch_array($queryMyBids)){ ?>
                         <td><?php echo mb_ucfirst($rowMyBids['goods_name']); ?></td>
-                        <td><?php echo $rowMyBids['quantity']; ?></td>
-                        <td><?php echo $rowMyBids['bid_price']; ?></td>
-                        <td><a href="?page=user&uid=<?php echo $rowMyBids['leader_id']; ?>"><?php echo $rowMyBids['login']; ?></td>
+                        <td><?php echo $rowMyBids['quantity']; ?>кг</td>
+                        <td><?php echo $rowMyBids['bid_price']; ?>тг</td>
+                        <td>
+                            <a href="?page=user&uid=<?php echo $rowMyBids['leader_id']; ?>"><?php echo $rowMyBids['login']; ?>
+                        </td>
                         <td><?php echo $rowMyBids['group_name']; ?></td>
-                        <td ><a href="?page=order&oid=<?php echo $rowMyBids['order_id']; ?>">
+                        <td><a href="?page=order&oid=<?php echo $rowMyBids['order_id']; ?>">
                                 <img src="images/ic_content.png" id="ic_content"></a>
                         </td>
                     </tr><!-- Table Row --><?php } ?>
-            </table>
+                </table>
             <?php } ?>
         </div>
     </div>
