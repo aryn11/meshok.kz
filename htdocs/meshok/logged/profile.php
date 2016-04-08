@@ -19,12 +19,10 @@ if(isset($_GET['sortB'])){
 $qqq = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id, u.login 
                           FROM groups g, users u
 						  WHERE g.created_user_id=u.id and g.created_user_id = " . $_SESSION['user_id']." order by ".$sortB." ".$typeB;
+$query = mysqli_query($link, $qqq);
+
 
 $queryUser = "select * from users where id=" . $_SESSION['user_id'] . " LIMIT 1";
-
-//print $qqq;
-
-$query = mysqli_query($link, $qqq);
 $queryUsers = mysqli_query($link, $queryUser);
 $userRow = mysqli_fetch_array($queryUsers);
 
@@ -32,7 +30,7 @@ $userRow = mysqli_fetch_array($queryUsers);
 <div class="parent">
     <div class="block-center-profile">
         <div class="profile_info">
-            <h2>Мой профиль <a href="#"><img id="ic_settings" src="images/ic_settings.png"></a></h2>
+            <h2>Мой профиль <a href="?page=profileSettings&uid=<?php echo $_SESSION['user_id']; ?>"><img id="ic_settings" src="images/ic_settings.png"></a></h2>
             <table class="profile_table">
                 <tr>
                     <td>Фамилия:</td>

@@ -191,9 +191,7 @@ body {
 #hiden_input{
     display: none;
 }
-.input_reg:hover{
-    background-color: #66c900;
-}
+
 .profile_info{
     display: inline-block;
     min-width: 320px;
@@ -408,8 +406,16 @@ body {
     border-radius: 0.3em;
     border-color: #00A5E3 ;
 }
-.input_reg:hover{
-    background-color: #66c900;
+
+.input_changes{
+    margin-left: 158px;
+    padding: 8px 30px;
+    background-color: #f90b00;
+    border-radius: 0.3em;
+    border-color: #00A5E3 ;
+}
+.input_changes:hover{
+    background-color: #bf0000;
 }
 .button_addGroup {
     color: white;

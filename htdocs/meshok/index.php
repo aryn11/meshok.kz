@@ -52,6 +52,21 @@ if ($logged) {
             mysqli_query($link, "UPDATE bids SET is_deleted = 1 WHERE id = " . $_GET['bid']);
             header("Location:?page=order&oid=".$_GET['oid']."#fromAddBit");
         }
+        if($_GET['act']== 'changeUserData'){
+            $fname = $_POST['c_fname'];
+            $lname = $_POST['c_lname'];
+            $email = $_POST['c_email'];
+            $address = $_POST['c_address'];
+            $phone = $_POST['c_phone'];
+
+            mysqli_query($link, "UPDATE users SET fname=\"".$fname."\", 
+                                                  lname=\"".$lname."\", 
+                                                  email=\"".$email."\",
+                                                  address=\"".$address."\",
+                                                  phone=\"".$phone."\" WHERE id =". $_SESSION['user_id']);
+            header("Location:?page=profile");
+
+        }
 
 
         if ($_GET['act'] == 'addGroup') {
@@ -158,6 +173,7 @@ if ($logged) {
                     }
 
                 }
+                header("Location:?page=profile");
             }
 
 
@@ -287,6 +303,9 @@ if ($logged) {
         } else if ($_GET['page'] == 'contacts'){
             $page = $_GET['page'];
             $pageTitle = "Контакты • Meshok ";
+        } else if ($_GET['page'] == 'profileSettings'){
+            $page = $_GET['page'];
+            $pageTitle = "Изменение профиля ".$_SESSION['user_login']." • Meshok ";
         }
         /* else if ($_GET['page'] == 'messages') {
             $page = $_GET['page'];
