@@ -226,10 +226,17 @@ body {
     opacity:0.7;
 }
 .delete_group_text{
+    padding-left: 4px;
     text-align: center;
     line-height: 20px;
     padding-top: 13px;
     font-family: Verdana, serif;
+}
+#arrow_back{
+    opacity: 0.3;
+}
+#arrow_back:hover{
+    opacity:0.6;
 }
 #delete_group_div{
     margin-top:150px;
@@ -452,12 +459,12 @@ body {
 .input_changes{
     margin-left: 158px;
     padding: 8px 30px;
-    background-color: #f90b00;
+    background-color: #f9f800;
     border-radius: 0.3em;
     border-color: #00A5E3 ;
 }
 .input_changes:hover{
-    background-color: #bf0000;
+    background-color: #f1e700;
 }
 .button_addGroup {
     color: white;

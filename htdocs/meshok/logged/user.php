@@ -64,6 +64,7 @@ $rowUser = mysqli_fetch_array($queryUsers);
                     </tr>
                 <?php } ?>
             </table>
+            <p align="center"><a href="#" onclick="window.history.back();" id="arrow_back"><img src="images/ic_arrow.png"></a></p>
 
         </div>
     </div>
