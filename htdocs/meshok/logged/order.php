@@ -36,7 +36,8 @@ $rowMyBids = mysqli_fetch_array($queryMyBids);
                     if($_SESSION['user_id']!=$rowMyBids['user_id']){?>
                         <a onclick="return addBidField()" href="#"><img id="img_add_bid" src="images/ic_add.png" alt="Подать заявку"/></a>
                     <?php } else { ?>
-                        <a href="?act=removeBid&bid=<?php echo $rowMyBids['bid_id']; ?>&oid=<?php echo $_GET['oid']; ?>"><img id="img_add_bid" src="images/ic_remove_.png" alt="Подать заявку"/></a>
+                        <a href="?act=removeBid&bid=<?php echo $rowMyBids['bid_id']; ?>&oid=<?php echo $_GET['oid']; ?>"><img id="img_add_bid" src="images/ic_delete_forever.png" alt="Подать заявку"/></a>
+
                     <?php } ?>
                     <div id="parentId">
                         <!--fields create here!-->

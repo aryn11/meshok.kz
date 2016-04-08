@@ -162,6 +162,14 @@ body {
 #a4table_td{
     min-width: 80px;
 }
+#a4table_td a{
+    font-weight: bold;
+    text-decoration: none;
+    color: #6c7274;
+}
+#a4table_td a:hover{
+    color: #c8c8c8;
+}
 #a4table_td_phone{
     width: 150px;
 }
@@ -187,6 +195,10 @@ body {
     height:28px;
     margin-left: 5px;
     margin-bottom: 0px;
+    opacity: 0.5;
+}
+#img_add_bid:hover{
+    opacity:0.8;
 }
 #hiden_input{
     display: none;
