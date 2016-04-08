@@ -172,6 +172,13 @@ body {
 #ic_content:hover {
     opacity:0.8;
 }
+#ic_settings{
+    width: 15px;
+    opacity:0.5;
+}
+#ic_settings:hover {
+    opacity:0.8;
+}
 #addOrder_form{
     margin-top: 40px;
 }
@@ -226,6 +233,7 @@ body {
 }
 .profile_table td:last-child {
     font-weight: bold;
+    color: #6c7274;
 }
 #content_container {
     margin-left: auto;
@@ -310,6 +318,9 @@ body {
 }
 #oth3{
     min-width: 120px;
+}
+#oth4{
+    min-width: 85px;
 }
 .nav_button {
     width: 120px; /*This number you can edit when you need to add more with to fit your text inside the button */
@@ -727,7 +738,7 @@ body {
     border-bottom:1px solid #e0e0e0;
 
     background: #ededed;
-    background: -webkit-gradient(linear, left top, left bottom, from(#ededed), to(#ebebeb));
+    background: -webkit-gradient(linear, left top, left bottom, from(#d2ffc0), to(#fffdbf));
     background: -moz-linear-gradient(top,  #ededed,  #ebebeb);
 }
 .simple-little-table th:first-child{

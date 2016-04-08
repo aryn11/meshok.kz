@@ -13,12 +13,12 @@ if(isset($_GET['sortB'])){
 
 }else{
     $sortB="g.created_at";
-    $type="desc";
+    $typeB="desc";
 }
 
 $qqq = "SELECT g.id as group_id, g.created_user_id, g.name, g.created_at, u.id, u.login 
                           FROM groups g, users u
-						  WHERE g.created_user_id=u.id and g.created_user_id = " . $_SESSION['user_id'];
+						  WHERE g.created_user_id=u.id and g.created_user_id = " . $_SESSION['user_id']." order by ".$sortB." ".$typeB;
 
 $queryUser = "select * from users where id=" . $_SESSION['user_id'] . " LIMIT 1";
 
@@ -32,7 +32,7 @@ $userRow = mysqli_fetch_array($queryUsers);
 <div class="parent">
     <div class="block-center-profile">
         <div class="profile_info">
-            <h2>Мой профиль</h2>
+            <h2>Мой профиль <a href="#"><img id="ic_settings" src="images/ic_settings.png"></a></h2>
             <table class="profile_table">
                 <tr>
                     <td>Фамилия:</td>
@@ -87,8 +87,8 @@ $userRow = mysqli_fetch_array($queryUsers);
                 <table class="simple-little-table" cellspacing='0'>
 
                     <tr>
-                        <th>Название</th>
-                        <th>Создана</th>
+                        <th id="oth4"><div style="line-height: 30px;"> Название <a id="arrow_img_a" href="?page=profile&sortB=g.name&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=profile&sortB=g.name&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
+                        <th id="oth4"><div style="line-height: 30px;"> Название <a id="arrow_img_a" href="?page=profile&sortB=g.created_at&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=profile&sortB=g.created_at&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
                         <th>Участники</th>
                         <th style="padding: 0 80px; ">Заказы</th>
                         <th>Создать заказ</th>
@@ -105,7 +105,7 @@ $userRow = mysqli_fetch_array($queryUsers);
                             <td><?php echo $row['name']; ?></td>
                             <td><?php
                                 $date = new DateTime($row['created_at']);
-                                echo $date->Format('F j H:i');
+                                echo $date->Format('j F H:i');
                                 ?></td>
                             <td style="text-align: left; "><?php while ($row2 = mysqli_fetch_array($query2)) {
                                     if ($row2['user_login'] != $_SESSION['user_login']) {
@@ -172,7 +172,7 @@ $userRow = mysqli_fetch_array($queryUsers);
             <?php } else if ($_SESSION['user_type'] == 1) {
                 $queryMyBid = "select b.id, b.order_id, b.user_id, b.price as bid_price, b.created_at, b.is_deleted, u.id as leader_id, u.login, o.id as order_id, o.good_id, o.group_id, o.quantity, o.price, gs.id, gs.name as goods_name, gp.id, gp.name as group_name, gp.created_user_id
                 from bids b, orders o, users u, goods gs, groups gp 
-                where b.user_id=" . $_SESSION['user_id'] . " and b.order_id=o.id and o.good_id=gs.id and o.group_id=gp.id and gp.created_user_id=u.id and b.is_deleted=0 order by ".$sort." ".$type;;
+                where b.user_id=" . $_SESSION['user_id'] . " and b.order_id=o.id and o.good_id=gs.id and o.group_id=gp.id and gp.created_user_id=u.id and b.is_deleted=0 order by ".$sort." ".$type;
                 $queryMyBids = mysqli_query($link, $queryMyBid);
 
                 ?>
