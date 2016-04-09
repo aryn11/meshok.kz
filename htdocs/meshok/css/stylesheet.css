@@ -630,15 +630,18 @@ body {
     background-color: #478d00;
 }
 .main_image {
-    width: 100%;
-    height:500px;
+
+    width: 1500px;
+    height:600px;
     background-color: black;
     margin-bottom: 2px;
 }
 .im_png {
     opacity:0.5;
     width:100%;
-    height: 500px;
+    height: 600px;
+    background-attachment: fixed;
+    background-repeat: inherit;
     background-image: url("../images/rynok.jpg");
 }
 

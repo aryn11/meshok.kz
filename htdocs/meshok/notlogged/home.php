@@ -9,7 +9,7 @@
     <!--<img id="main_image_id" src="images/rynok.jpg">-->
 
 </div>
-<div id="login_block" class="parent" style="background-color: lightgrey; background: linear-gradient(to top, #ffffce, #cbff80);">
+<div id="login_block" class="parent" style="background-color: lightgrey; background: linear-gradient(to top, #000000, #40ff18);">
     <div class="block-center-login">
         <form action="?act=login" method="post" id="login">
             <p id="sign_in_text">Log in to Your Account</p>
