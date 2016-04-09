@@ -5,7 +5,7 @@
             pass.type = "text";
         } else {
             pass.type = "password";
-        }
+        } 
     }
 </script>
 <div class="parent">
