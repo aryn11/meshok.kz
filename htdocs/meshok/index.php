@@ -520,6 +520,9 @@ function right_case($str_right_case){
                     <div id="header_content_lowerboxcontent"> Короткова Мария <br/>
                         +7(708) 903 0888<br/>
                         favourite-best@mail.ru
+						<?php $b=3;
+								$a=$b++;
+								echo $a.$b;?>
                     </div>
                 </div>
             </div>
@@ -613,6 +616,16 @@ function right_case($str_right_case){
         var oTextBox = document.getElementById('createGroupLogin');
         oTextBox.focus();
         oTextBox.select();
+    }
+    function demo() {
+        document.getElementById("login_registration").value="Oleg";
+        document.getElementById("n_pass").value="Oleg";
+        document.getElementById("name_registration").value="Олег";
+        document.getElementById("sname_registration").value="Фомин";
+        document.getElementById("email_registration").value="oleg@mail.ru";
+        document.getElementById("address_registration").value="Тлендиева 52";
+        document.getElementById("phone_registration").value="77778546517";
+
     }
 </script>
 

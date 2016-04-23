@@ -461,6 +461,25 @@ body {
     border-radius: 0.3em;
     border-color: #00A5E3 ;
 }
+.input_reg:hover{
+    background-color: #60bf00;
+    border-color: #008dc3;
+}
+
+.input_reg_demo{
+    margin-top: 8px;
+    margin-left: 150px;
+    padding: 8px 30px;
+    color:darkgrey;
+    background-color: #fffdf8;
+    border-radius: 0.3em;
+    border-color: #dedde3;
+}
+.input_reg_demo:hover{
+    color:black;
+    background-color: #cbfcb8;
+    border-color: #008dc3;
+}
 
 .input_changes{
     margin-left: 158px;
@@ -502,7 +521,7 @@ body {
 }
 .block-center-registration{
     width: 400px;
-    height: 440px;
+    height: 540px;
     top: 0;
     right: 0;
     bottom: 0;
