@@ -48,8 +48,11 @@ $userRow = mysqli_fetch_array($queryUsers);
                     <td>Создан:</td>
                     <td><?php
                         $date = new DateTime($userRow['created_at']);
-                        echo $date->Format('d/m/Y');
-                        ?></td>
+                        $eDate = $date->Format('Y-m-d');
+                        $esDate = floor((strtotime(date("Y-m-d"))-strtotime($eDate))/86400);
+                        echo $date->Format('d/m/Y')." (".$esDate."д.)";
+                        ?>
+                    </td>
                 </tr>
                 <tr>
                     <td>Email:</td>
@@ -63,7 +66,7 @@ $userRow = mysqli_fetch_array($queryUsers);
                     <td>Телефон:</td>
                     <td><?php echo "+7 " . $userRow['phone']; ?></td>
                 </tr>
-                <?php if ($userRow['role'] == 1) { ?>
+
                     <tr>
                         <td>Рейтинг:</td>
                         <td>
@@ -76,14 +79,13 @@ $userRow = mysqli_fetch_array($queryUsers);
                             </div>
                         </td>
                     </tr>
-                <?php } ?>
             </table>
         </div>
         <div class="profile_list">
+            <!--if buyer-->
             <?php if ($_SESSION['user_type'] == 2) { ?>
                 <h2>Управление</h2>
                 <table class="simple-little-table" cellspacing='0'>
-
                     <tr>
                         <th id="oth4"><div style="line-height: 30px;"> Название <a id="arrow_img_a" href="?page=profile&sortB=g.name&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=profile&sortB=g.name&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
                         <th id="oth4"><div style="line-height: 30px;"> Название <a id="arrow_img_a" href="?page=profile&sortB=g.created_at&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=profile&sortB=g.created_at&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
@@ -100,27 +102,29 @@ $userRow = mysqli_fetch_array($queryUsers);
                         ?>
 
                         <tr>
-                            <td><a href="?page=group&gid=<?php echo $row['group_id']; ?>"><?php echo $row['name']; ?></a></td>
+                            <td><a style="color:#55a900;" href="?page=group&gid=<?php echo $row['group_id']; ?>"><?php echo $row['name']; ?></a></td>
+
                             <td><?php
                                 $date = new DateTime($row['created_at']);
                                 echo $date->Format('j F H:i');
                                 ?></td>
+
                             <td style="text-align: left; "><?php while ($row2 = mysqli_fetch_array($query2)) {
                                     if ($row2['user_login'] != $_SESSION['user_login']) {
                                         echo "<a href=\"?page=user&uid=" . $row2['user_id'] . "\">" . $row2['user_login'] . "</a><br> ";
                                     }
                                 } ?></td>
-                            <td style="text-align: left; padding-top: 35px;"><?php $queryOrders = "select o.id as order_id, o.good_id, o.group_id, o.quantity, o.price, o.payment, o.is_deleted, gs.id, gs.name as good_name 
-                                              from orders o, goods gs 
-                                              where o.is_deleted = 0 and gs.id = o.good_id and o.group_id=" . $row['group_id'];
-                                $runQueryOrders = mysqli_query($link, $queryOrders);
-                                while ($rowOrders = mysqli_fetch_array($runQueryOrders)){ ?>
+
+                            <td style="text-align: left; padding-top: 35px;"><?php   $queryOrders = "select o.id as order_id, o.good_id, o.group_id, o.quantity, o.price, o.payment, o.is_deleted, gs.id, gs.name as good_name 
+                                                    from orders o, goods gs 
+                                                    where o.is_deleted = 0 and gs.id = o.good_id and o.group_id=" . $row['group_id'];
+                                                    $runQueryOrders = mysqli_query($link, $queryOrders);
+                                                    while ($rowOrders = mysqli_fetch_array($runQueryOrders)){ ?>
                                 <a href="?page=order&oid=<?php echo $rowOrders['order_id']; ?>"><?php
-                                    echo mb_ucfirst($rowOrders['good_name']) . " " . $rowOrders['quantity'] . "кг/" . $rowOrders['price'] . "тг</br></br>";
-                                    ?> </a> <?php }
-                                ?></a></td>
-                            <td><a id="addOrderButton" href="?page=addOrder&mid=<?php print $row['group_id']; ?>">+</a>
-                            </td>
+                                                    echo mb_ucfirst($rowOrders['good_name']) . " " . $rowOrders['quantity'] . "кг/" . $rowOrders['price'] . "тг</br></br>";?> </a> <?php } ?></a></td>
+
+                            <td><a id="addOrderButton" href="?page=addOrder&mid=<?php print $row['group_id']; ?>">+</a></td>
+
                         </tr><!-- Table Row -->
                         <?php
                     }
@@ -134,7 +138,7 @@ $userRow = mysqli_fetch_array($queryUsers);
                     <?php while ($rowMyGroups = mysqli_fetch_array($queryMyGroups)) {
                         ?>
                         <tr>
-                            <td><a href="?page=group&gid=<?php echo $rowMyGroups['group_id']; ?>"><?php echo $rowMyGroups['name']; ?></a></td>
+                            <td><a style="color:darkred" href="?page=group&gid=<?php echo $rowMyGroups['group_id']; ?>"><?php echo $rowMyGroups['name']; ?></a></td>
                             <td><?php $date = new DateTime($rowMyGroups['created_at']);
                                 echo $date->Format('F j H:i'); ?></td>
                             <td style="text-align: left;"><?php

@@ -4,8 +4,11 @@
 $query = "select id, name, type from goods";
 $queryL = mysqli_query($link, $query);
 
+$query2 = "select id, name, type from goods";
+$queryL2 = mysqli_query($link, $query2);
 
-
+$queryMarkets = "select * from markets";
+$runQM = mysqli_query($link, $queryMarkets);
 ?>
 <div class="parent">
     <div class="block-center-addOrder">
@@ -48,6 +51,31 @@ $queryL = mysqli_query($link, $query);
             <input style="display: none;" type="text" name="gid" value="<?php echo $_GET['mid']; ?>">
 
             <p><input class="button_addOrder" type="submit" value="Создать заказ"></p>
+
+            <table class="simple-little-table" cellspacing='0'>
+
+                <tr>
+                    <th>Супермаркеты</th>
+                        <?php while ($rowx = mysqli_fetch_array($queryL2)) { ?>
+                    <th><?php echo mb_ucfirst($rowx['name']); ?></th>
+                        <?php } ?>
+
+                </tr><!-- Table Header -->
+                <?php while($rowqm = mysqli_fetch_array($runQM)){
+                        $queryMP = "select m.id, mp.id, mp.market_id, mp.good_id, mp.price, g.id, g.name
+                                    from markets m, prices_in_markets mp, goods g
+                                    where m.id = mp.market_id and mp.good_id=g.id and m.id=".$rowqm['id'];
+                        $runMP = mysqli_query($link, $queryMP);
+                        ?>
+                <tr>
+                    <td><?php echo $rowqm['name']; ?></td>
+                        <?php while ($rowMP = mysqli_fetch_array($runMP)) {
+                            echo "<td>".$rowMP['price']."тг</td>";
+                        }?>
+                </tr>
+                <?php } ?>
+
+            </table>
         </form>
     </div>
 </div>

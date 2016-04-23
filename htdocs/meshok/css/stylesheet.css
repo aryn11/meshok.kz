@@ -61,7 +61,7 @@ body {
     margin: auto;
 }
 .block-center-addOrder {
-    width: 400px;
+    width: 450px;
     height: 100%;
     min-height: 500px;
     top: 0;
@@ -537,7 +537,7 @@ body {
 }
 .input_registration input {
     padding: 8px;
-    width: 220px;
+    width: 222px;
     font-size: 15px;
     border-radius: 0.25em;
     border-color: #00A5E3 ;
@@ -796,7 +796,7 @@ body {
 
 .simple-little-table {
     font-family:Arial, Helvetica, sans-serif;
-    max-width: 500px;
+    max-width: 550px;
     color:#666;
     font-size:12px;
     text-shadow: 1px 1px 0px #fff;
