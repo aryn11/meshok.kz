@@ -119,9 +119,14 @@ $userRow = mysqli_fetch_array($queryUsers);
                                                     from orders o, goods gs 
                                                     where o.is_deleted = 0 and gs.id = o.good_id and o.group_id=" . $row['group_id'];
                                                     $runQueryOrders = mysqli_query($link, $queryOrders);
-                                                    while ($rowOrders = mysqli_fetch_array($runQueryOrders)){ ?>
+                                                    while ($rowOrders = mysqli_fetch_array($runQueryOrders)){
+                                                        $queryQOB = "select count(*) as count_bids, b.id, b.order_id, b.is_deleted, o.id 
+                                                                     from orders o, bids b
+                                                                     where b.is_deleted = 0 and o.id=b.order_id and o.id=".$rowOrders['order_id'];
+                                                        $runQOB = mysqli_query($link, $queryQOB);
+                                                        $rowQOB = mysqli_fetch_array($runQOB);?>
                                 <a href="?page=order&oid=<?php echo $rowOrders['order_id']; ?>"><?php
-                                                    echo mb_ucfirst($rowOrders['good_name']) . " " . $rowOrders['quantity'] . "кг/" . $rowOrders['price'] . "тг</br></br>";?> </a> <?php } ?></a></td>
+                                                    echo mb_ucfirst($rowOrders['good_name']) . " " . $rowOrders['quantity'] . "кг/" . $rowOrders['price'] . "тг ".is_zero($rowQOB['count_bids'])."</br></br>";?> </a> <?php } ?></a></td>
 
                             <td><a id="addOrderButton" href="?page=addOrder&mid=<?php print $row['group_id']; ?>">+</a></td>
 
@@ -162,9 +167,14 @@ $userRow = mysqli_fetch_array($queryUsers);
                                               from orders o, goods gs 
                                               where o.is_deleted = 0 and gs.id = o.good_id and o.group_id=" . $rowMyGroups['group_id'];
                                 $runQueryOrders = mysqli_query($link, $queryOrders);
-                                while ($rowOrders = mysqli_fetch_array($runQueryOrders)){ ?>
+                                while ($rowOrders = mysqli_fetch_array($runQueryOrders)){
+                                $queryQOB2 = "select count(*) as count_bids, b.id, b.order_id, b.is_deleted, o.id 
+                                                                     from orders o, bids b
+                                                                     where b.is_deleted = 0 and o.id=b.order_id and o.id=".$rowOrders['order_id'];
+                                $runQOB2 = mysqli_query($link, $queryQOB2);
+                                $rowQOB2 = mysqli_fetch_array($runQOB2);?>
                                 <a href="?page=order&oid=<?php echo $rowOrders['order_id']; ?>"><?php
-                                    echo mb_ucfirst($rowOrders['good_name']) . " " . $rowOrders['quantity'] . "кг/" . $rowOrders['price'] . "тг</br></br>";
+                                    echo mb_ucfirst($rowOrders['good_name']) . " " . $rowOrders['quantity'] . "кг/" . $rowOrders['price'] . "тг".is_zero($rowQOB2['count_bids']) ."</br></br>";
                                     ?> </a> <?php }
                                 ?></a>
                             </td>

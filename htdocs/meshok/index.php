@@ -386,6 +386,13 @@ function right_case($str_right_case){
     }
     return $str_right_case;
 }
+function is_zero($value){
+    if($value==0){
+        return null;
+    }else{
+        return "(".$value.")";
+    }
+}
 
 ?>
 
