@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Апр 23 2016 г., 18:36
+-- Время создания: Апр 24 2016 г., 17:06
 -- Версия сервера: 10.1.10-MariaDB
 -- Версия PHP: 5.6.19
 
@@ -56,6 +56,53 @@ INSERT INTO `bids` (`id`, `order_id`, `user_id`, `price`, `created_at`, `is_dele
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `comments`
+--
+
+CREATE TABLE `comments` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `changed_at` datetime NOT NULL,
+  `is_deleted` int(11) NOT NULL,
+  `text` varchar(500) NOT NULL,
+  `type` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `comments`
+--
+
+INSERT INTO `comments` (`id`, `user_id`, `created_at`, `changed_at`, `is_deleted`, `text`, `type`) VALUES
+(4, 6, '2016-04-24 20:50:12', '2016-04-24 20:50:12', 0, 'Best supplier', 0),
+(5, 6, '2016-04-24 21:01:44', '2016-04-24 21:01:44', 0, '', 0),
+(6, 6, '2016-04-24 21:04:59', '2016-04-24 21:04:59', 0, 'slfnsdkgndkfjgndkfjgn sdjfkdsjfkdjgn kdsjghkdfhgkjdf ksjdhfksjdhfkjsd', 0);
+
+-- --------------------------------------------------------
+
+--
+-- Структура таблицы `feedbacks`
+--
+
+CREATE TABLE `feedbacks` (
+  `id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `theme` varchar(50) NOT NULL,
+  `text` varchar(255) NOT NULL,
+  `created_at` datetime NOT NULL,
+  `is_deleted` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `feedbacks`
+--
+
+INSERT INTO `feedbacks` (`id`, `user_id`, `theme`, `text`, `created_at`, `is_deleted`) VALUES
+(1, 6, 'ÐŸÐ¾Ð»Ð¾Ð¼ÐºÐ°', 'ÐŸÐ»Ð¾Ñ…Ð¾ Ñ€Ð°Ð±Ð¾Ñ‚Ð°ÐµÑ‚ Ð¾Ð±Ñ€Ð°Ñ‚Ð½Ð°Ñ ÑÐ²ÑÐ·ÑŒ', '2016-04-24 18:45:13', 0);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `goods`
 --
 
@@ -100,7 +147,8 @@ INSERT INTO `groups` (`id`, `created_user_id`, `name`, `created_at`, `is_deleted
 (51, 5, 'Group51 ', '2016-04-06 21:43:55', 0),
 (52, 4, 'Group52 ', '2016-04-06 22:07:01', 0),
 (53, 6, 'Group53 ', '2016-04-08 14:11:55', 1),
-(54, 6, 'Group54 ', '2016-04-08 16:52:23', 1);
+(54, 6, 'Group54 ', '2016-04-08 16:52:23', 1),
+(55, 6, 'Group55 ', '2016-04-24 11:20:01', 1);
 
 -- --------------------------------------------------------
 
@@ -247,6 +295,28 @@ INSERT INTO `users` (`id`, `login`, `password`, `role`, `created_at`, `fname`, `
 -- --------------------------------------------------------
 
 --
+-- Структура таблицы `users_comments`
+--
+
+CREATE TABLE `users_comments` (
+  `id` int(11) NOT NULL,
+  `sender_id` int(11) NOT NULL,
+  `receiver_id` int(11) NOT NULL,
+  `comment_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Дамп данных таблицы `users_comments`
+--
+
+INSERT INTO `users_comments` (`id`, `sender_id`, `receiver_id`, `comment_id`) VALUES
+(2, 6, 4, 4),
+(3, 6, 4, 5),
+(4, 6, 4, 6);
+
+-- --------------------------------------------------------
+
+--
 -- Структура таблицы `users_in_groups`
 --
 
@@ -274,7 +344,8 @@ INSERT INTO `users_in_groups` (`id`, `group_id`, `user_id`, `user_login`) VALUES
 (47, 52, 4, 'sasha'),
 (48, 52, 6, 'akpar'),
 (49, 53, 6, 'akpar'),
-(50, 54, 6, 'akpar');
+(50, 54, 6, 'akpar'),
+(51, 55, 6, 'akpar');
 
 --
 -- Индексы сохранённых таблиц
@@ -284,6 +355,18 @@ INSERT INTO `users_in_groups` (`id`, `group_id`, `user_id`, `user_login`) VALUES
 -- Индексы таблицы `bids`
 --
 ALTER TABLE `bids`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `comments`
+--
+ALTER TABLE `comments`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Индексы таблицы `feedbacks`
+--
+ALTER TABLE `feedbacks`
   ADD PRIMARY KEY (`id`);
 
 --
@@ -323,6 +406,12 @@ ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Индексы таблицы `users_comments`
+--
+ALTER TABLE `users_comments`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Индексы таблицы `users_in_groups`
 --
 ALTER TABLE `users_in_groups`
@@ -338,6 +427,16 @@ ALTER TABLE `users_in_groups`
 ALTER TABLE `bids`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
 --
+-- AUTO_INCREMENT для таблицы `comments`
+--
+ALTER TABLE `comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT для таблицы `feedbacks`
+--
+ALTER TABLE `feedbacks`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=2;
+--
 -- AUTO_INCREMENT для таблицы `goods`
 --
 ALTER TABLE `goods`
@@ -346,7 +445,7 @@ ALTER TABLE `goods`
 -- AUTO_INCREMENT для таблицы `groups`
 --
 ALTER TABLE `groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=55;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=56;
 --
 -- AUTO_INCREMENT для таблицы `markets`
 --
@@ -368,10 +467,15 @@ ALTER TABLE `prices_in_markets`
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 --
+-- AUTO_INCREMENT для таблицы `users_comments`
+--
+ALTER TABLE `users_comments`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
 -- AUTO_INCREMENT для таблицы `users_in_groups`
 --
 ALTER TABLE `users_in_groups`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=51;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=52;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

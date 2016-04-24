@@ -39,6 +39,28 @@ if ($logged) {
             mysqli_query($link, $query);
             header("Location:?page=profile");
         }
+        if ($_GET['act'] == 'feedback') {
+            $user_id = $_SESSION['user_id'];
+            $theme = $_POST['f_theme'];
+            $text = $_POST['f_text'];
+            $queryFeedbacks = "INSERT into feedbacks values(null, $user_id, \"".$theme."\", \"".$text."\", SYSDATE(), 0)";
+            mysqli_query($link, $queryFeedbacks);
+            header("Location:?page=contacts&message=1");
+        }
+        if ($_GET['act'] == 'comment'){
+            $user_id=$_SESSION['user_id'];
+            $text = $_POST['text'];
+            $receiver_id = $_POST['receiver_id'];
+            $queryComments = "INSERT into comments values(null, $user_id, SYSDATE(), SYSDATE(), 0, \"".$text."\", 0)";
+            mysqli_query($link, $queryComments);
+            sleep(0.1);
+            $queryCommentsId = "select * from comments where user_id=$user_id order by created_at desc LIMIT 1";
+            $runQCI = mysqli_query($link, $queryCommentsId);
+            $rowQCI = mysqli_fetch_array($runQCI);
+            $queryCommentsU = "insert into users_comments values(null, $user_id, $receiver_id, ".$rowQCI['id'].")";
+            mysqli_query($link, $queryCommentsU);
+            header("Location:?page=user&uid=$receiver_id");
+        }
         if ($_GET['act'] == 'addBid') {
 
             $order_id = $_POST['order_id'];

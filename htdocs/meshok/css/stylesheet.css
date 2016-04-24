@@ -81,7 +81,7 @@ body {
     margin: auto;
 }
 .block-center-user {
-    width: 340px;
+    width: 360px;
     height: 100%;
     min-height: 500px;
     top: 0;
@@ -120,7 +120,7 @@ body {
     margin: auto;
 }
 .block-center-contacts {
-    width: 200px;
+    width: 250px;
     height: 100%;
     min-height: 500px;
     top: 0;
@@ -493,7 +493,7 @@ body {
 }
 .button_addGroup {
     color: white;
-    margin-top: 2px;
+    margin-top: 0px;
     margin-left: 190px;
     margin-bottom: 20px;
     padding: 8px 30px;
@@ -502,6 +502,20 @@ body {
     border-color: #00A5E3 ;
 }
 .button_addGroup:hover{
+    background-color: #66c900;
+}
+#addButton {
+    color: white;
+    text-decoration: none;
+    font-weight:bold;
+    font-size: 20px;
+    border-radius: 0.3em;
+    background-color: #73e100;
+    padding: 5px 10px 8px 10px;
+    margin-left: 10px;
+    border: 2px inset #00A5E3;
+}
+#addButton:hover{
     background-color: #66c900;
 }
 .button_addOrder {
@@ -518,6 +532,114 @@ body {
 }
 .button_addGroup:hover{
     background-color: #66c900;
+}
+.feedback-form h3 {
+    font-family: "Century Gothic", serif;
+    font-weight: normal;
+    margin: 40px 8px 6px 0px;
+}
+.feedback-form input{
+    margin: 8px 8px 8px 0px;
+    padding: 2px 5px;
+    font-size:14px;
+    width: 250px;
+    box-shadow: 0;
+    border-radius: 0;
+    border: 0px solid transparent;
+    border-bottom: 2px solid  #00A5E3;
+}
+.feedback-form input:focus{
+    outline:none;
+}
+.feedback-form button{
+    margin: 8px 8px 8px 60px;
+    font-family: "Century Gothic", serif;
+    color: black;
+    padding: 8px 30px;
+    background-color: #73e100;
+    border-radius: 0.3em;
+    border-color: #00A5E3 ;
+}
+.feedback-form button:hover{
+    background-color: #60bf00;
+    border-color: #008dc3;
+}
+.comment-form{
+    margin-top: 40px;
+}
+.comment-form h3 {
+    font-family: "Century Gothic", serif;
+    font-weight: normal;
+    margin: 40px 8px 6px 0px;
+}
+.comment-form input{
+    display: inline-block;
+    float: left;
+    margin: 8px 0px 8px 48px;
+    padding: 0px 5px;
+    font-size:18px;
+    width: 220px;
+    box-shadow: 0;
+    border-radius: 0;
+    border: 0px solid transparent;
+    border-bottom: 2px solid #929292;
+}
+.comment-form input:focus{
+    outline:none;
+}
+.comment-form button{
+    width: 40px;
+    display: inline-block;
+    margin-top: 6px;
+    border-radius: 0;
+    padding: 0px;
+    background-color: transparent;
+    border: 0 solid transparent;
+    opacity: 0.5;
+}
+.comment-form button:hover{
+    opacity: 0.8;
+}
+.comments{
+    display: block;
+}
+.comments table{
+    font-family: "Century Gothic", serif;
+    margin-top: 30px;
+    margin-left: 45px;
+    width: 270px;
+}
+.comments table td{
+    padding-left:5px;
+}
+#comments_tr1{
+    font-size:12px;
+}
+#comments_tr1 a{
+    text-decoration: none;
+    color: black;
+    font-weight:bold;
+}
+#comments_tr1 a:hover{
+    color:grey;
+}
+#comments_tr2{
+    padding-top: 4px;
+    font-size: 10px;
+}
+
+#comments_tr3{
+    font-size: 16px;
+}
+#comments_hr{
+    padding: 0px;
+}
+.contacts_table {
+    font-family: "Century Gothic", serif;
+}
+.contacts_table td:last-child{
+    padding-left: 20px;
+    font-weight: bold;
 }
 .block-center-registration{
     width: 400px;
@@ -740,20 +862,7 @@ body {
     text-decoration: none;
     margin-bottom: 10px;
 }
-#addButton {
-    color: white;
-    text-decoration: none;
-    font-weight:bold;
-    font-size: 20px;
-    border-radius: 0.3em;
-    background-color: #2dcb00;
-    padding: 5px 10px 8px 10px;
-    margin-left: 10px;
-    border: 2px inset #00A5E3;
-}
-#addButton:hover{
-    background-color: #478d00;
-}
+
 #ratingButton{
     color: white;
     text-decoration: none;

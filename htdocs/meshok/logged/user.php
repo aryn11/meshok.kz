@@ -45,7 +45,6 @@ $rowUser = mysqli_fetch_array($queryUsers);
                     <td>Телефон:</td>
                     <td><?php echo "+7 " . $rowUser['phone']; ?></td>
                 </tr>
-                <?php if ($rowUser['role'] == 1) { ?>
                     <tr>
                         <td>Рейтинг:</td>
                         <td><div id="raiting_star">
@@ -62,10 +61,38 @@ $rowUser = mysqli_fetch_array($queryUsers);
                             
                         </td>
                     </tr>
-                <?php } ?>
             </table>
-            <p style="margin-left: 40px;"><a href="#" onclick="window.history.back();" id="arrow_back"><img src="images/ic_arrow.png"></a></p>
+            <div class="comment-form">
+                <form action="?act=comment" method="post">
+                    <input type="text" name="text" placeholder="Оставить комментарии">
+                    <input type="text" name="receiver_id" style="display: none;" value="<?php echo $_GET['uid']; ?>">
+                    <button type="submit" value="Отправить"><img src="images/ic_message.png" /></button>
+                </form>
+            </div>
 
+            <div class="comments">
+
+                <table>
+                    <?php
+                    $queryCommentsOut = "select c.id, c.user_id, c.created_at, c.is_deleted, c.text, uc.id, uc.sender_id, uc.receiver_id, uc.comment_id, u.id as user_id, u.login
+                                     from comments c, users u, users_comments uc
+                                     where c.id=uc.comment_id and u.id=c.user_id and uc.receiver_id=".$_GET['uid']." order by created_at desc";
+                    $runQCO = mysqli_query($link, $queryCommentsOut);
+                    while($rowQCO = mysqli_fetch_array($runQCO)){
+                    ?>
+                    <tr >
+                        <td id="comments_tr1"><a href="?page=user&uid=<?php echo $rowQCO['user_id']; ?>"><?php echo $rowQCO['login']; ?></a></td>
+                    </tr>
+                    <tr >
+                        <td id="comments_tr2"><?php echo $rowQCO['created_at']; ?></td>
+                    </tr>
+                    <tr>
+                        <td id="comments_tr3"><?php echo $rowQCO['text']; ?></td>
+                    </tr>
+                    <tr><td id="comments_hr"><hr></td></tr>
+                    <?php }?>
+                </table>
+            </div>
         </div>
     </div>
 </div>

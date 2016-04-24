@@ -84,7 +84,7 @@ $userRow = mysqli_fetch_array($queryUsers);
         <div class="profile_list">
             <!--if buyer-->
             <?php if ($_SESSION['user_type'] == 2) { ?>
-                <h2>Управление</h2>
+                <h2>Мои группы</h2>
                 <table class="simple-little-table" cellspacing='0'>
                     <tr>
                         <th id="oth4"><div style="line-height: 30px;"> Название <a id="arrow_img_a" href="?page=profile&sortB=g.name&type=asc"><img id="arrows_img" src="images/arrow_up.png"/></a><a href="?page=profile&sortB=g.name&type=desc"><img id="arrows_img" src="images/arrow_down.png"/></a></div></th>
