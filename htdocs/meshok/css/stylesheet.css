@@ -90,6 +90,17 @@ body {
     left: 0;
     margin: auto;
 }
+.block-center-admin{
+    width: 1200px;
+    background-color: #f4f4f4;
+    height: 100%;
+    min-height: 600px;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    margin: auto;
+}
 .block-center-user table{
     margin-left: 60px;
 }
@@ -552,7 +563,7 @@ body {
     outline:none;
 }
 .feedback-form button{
-    margin: 8px 8px 8px 60px;
+    margin: 12px 8px 8px 130px;
     font-family: "Century Gothic", serif;
     color: black;
     padding: 8px 30px;

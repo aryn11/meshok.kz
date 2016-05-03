@@ -338,6 +338,9 @@ if ($logged) {
         } else if ($_GET['page'] == 'groupSettings'){
             $page = $_GET['page'];
             $pageTitle = "Настройка группы • Meshok ";
+        } else if ($_GET['page'] == 'admin'){
+            $page = $_GET['page'];
+            $pageTitle = "Управление • Meshok ";
         }
         /* else if ($_GET['page'] == 'messages') {
             $page = $_GET['page'];
@@ -412,7 +415,7 @@ function is_zero($value){
     if($value==0){
         return null;
     }else{
-        return "(".$value.")";
+        return /*"(".$value.")"*/"<span style=\"color:#bd5a35; \">(".$value.")►</span>";
     }
 }
 
@@ -507,6 +510,10 @@ function is_zero($value){
                 <?php } else if ($_SESSION['user_type'] == 2) { ?>
                     <a href="?page=createGroup">
                         <div class="nav_button">Создать группу</div>
+                    </a>
+                <?php } else if ($_SESSION['user_type'] == 3) { ?>
+                    <a href="?page=admin">
+                        <div class="nav_button">Админ панель</div>
                     </a>
                 <?php } ?>
 
